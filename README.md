@@ -24,6 +24,23 @@ Hermes AI Agent 的全量知识库，基于 Obsidian + Git 构建，双向同步
 | `vault-自动同步` | 每30分钟 | Hermes 记忆 → vault |
 | `archive_to_vault.sh` | 进化训练完成后 | 报告 → vault |
 
+## 🔧 扩展 vault 路径
+
+当 Hermes 新增文件/目录时，只需编辑映射配置文件加一行：
+
+```bash
+vim ~/.hermes/scripts/sync_vault_config.sh
+```
+
+在文件末尾的「未来新增路径请加在这里」区域添加：
+
+```bash
+# 格式："源路径(相对~/.hermes/)"  "目标路径(相对vault)"
+"新目录名"    "对应vault目录"
+```
+
+保存后下次 cron 自动生效。详见 `10-日常笔记/使用指南.md`。
+
 ## 📖 日常使用指南
 
 见 `10-日常笔记/使用指南.md`
