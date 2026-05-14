@@ -1,0 +1,21 @@
+# Obsidian
+.obsidian/workspace
+.obsidian/cache
+.obsidian/plugins/
+.obsidian/themes/
+.obsidian/vault-statistics.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp
+*.tmp
+*.swp
+*.swo
+*~
+
+# Node (if using Hugo later)
+node_modules/
+public/
+resources/
