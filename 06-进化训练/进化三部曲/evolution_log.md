@@ -75,3 +75,22 @@
 ### 关键决策
 - 适配 Hermes 工具集架构：CC 按工具名过滤，Hermes 按工具集名过滤，两种方式在工具集层面等价
 - 执行纪律：先备份 → 分步 patch（3 处）+ 验证每步 → 更新测试 → 全面跑测试
+
+## 2026-05-15 — 第3轮训练 + batch_moa_scorer 并行化改造
+
+### 第3轮训练归档（补）
+- **时间**: 2026-05-15 00:01 CST
+- **总能力分**: 84.6/100（11项算术平均）
+- **MoA评分**: 3题（数学）/ 55题，其余52题自评分
+- **最高分**: 数学 96.0
+- **最低分**: 执行力 78.6
+- **飞书归档**: https://www.feishu.cn/docx/KXv7dxAxLoqU7CxSUxJc63egnTc ✅
+
+### batch_moa_scorer 并行化改造
+- **问题**: 串行评分每题40-67s，55题需35-55分钟，cron 600s内只能评9-15题
+- **方案**: ThreadPoolExecutor 并行评分，--workers N 可配（默认3，推荐5）
+- **改动**: batch_moa_scorer.py 233行→445行
+- **备份**: batch_moa_scorer.py.backup.1778778119
+- **验证**: 3路/1路/checkpoint续跑全部通过
+- **PRD归档**: https://www.feishu.cn/docx/YS5ydL10OokQRGxxjKxcUiN1nSe
+- **技能文档**: self-evolution-trainer SKILL.md 已更新--workers参数章节
