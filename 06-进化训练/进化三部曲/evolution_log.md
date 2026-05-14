@@ -94,3 +94,22 @@
 - **验证**: 3路/1路/checkpoint续跑全部通过
 - **PRD归档**: https://www.feishu.cn/docx/YS5ydL10OokQRGxxjKxcUiN1nSe
 - **技能文档**: self-evolution-trainer SKILL.md 已更新--workers参数章节
+
+## 2026-05-15 — 第4轮训练（MoA全量版·并行化后首次验证）
+
+### 归档状态
+- ✅ 00:00 第3轮报告已归档: https://www.feishu.cn/docx/KXv7dxAxLoqU7CxSUxJc63egnTc
+- ✅ 03:00 第4轮报告已归档: https://www.feishu.cn/docx/Psx0dVm4Oof8TLx36EScaTqDnuf
+
+### 第4轮训练（03:00）
+- **时间**: 2026-05-15 03:00 CST
+- **MoA评分**: 55/55题全量，耗时7m59s（并行化改造后首次验证成功）
+- **总能力分**: 49/100（真实MoA评估，非自评分）
+- **最高分**: 抗幻觉 95/100
+- **最低分**: 检索力 7/100
+- **关键发现**: 真实MoA评分远低于自评分（49 vs 84.6），自评分系统性高估约36分
+- **文件位置**: training_data/rounds/report_20260515_030140.md（已修复目录错误）
+
+### 遗留问题
+- cron prompt 归档步骤反复跳过（00:00轮、03:00轮均未主动归档）
+- 需审计 cron prompt 中的归档指令是否真正可执行
