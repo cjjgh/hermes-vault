@@ -176,3 +176,33 @@ curl: (92) HTTP/2 stream 1 was not closed cleanly: INTERNAL_ERROR (err 2)
    ❌ 下载仍然不完整 (203MB / 203MB)
    请重试或手动下载:
    https://obsidian.md/download
+
+╔══════════════════════════════════════════════════════════╗
+║   🧠 Hermes Vault 一键完成安装                         ║
+╚══════════════════════════════════════════════════════════╝
+
+📥 第一步：检查 Obsidian 下载状态
+   已下载: 203MB / 203MB
+   ⏳ 文件不完整，尝试断点续传...
+** Resuming transfer from byte position 213334249
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+   ❌ 下载仍然不完整 (203MB / 203MB)
+   请重试或手动下载:
+   https://obsidian.md/download
+
+╔══════════════════════════════════════════════════════════╗
+║   🧠 Hermes Vault 一键完成安装                         ║
+╚══════════════════════════════════════════════════════════╝
+
+📥 第一步：检查 Obsidian 下载状态
+   已下载: 203MB / 203MB
+   ⏳ 文件不完整，尝试断点续传...
+** Resuming transfer from byte position 213334249
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+   ❌ 下载仍然不完整 (203MB / 203MB)
+   请重试或手动下载:
+   https://obsidian.md/download
