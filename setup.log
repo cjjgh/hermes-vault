@@ -776,3 +776,18 @@ curl: (92) HTTP/2 stream 1 was not closed cleanly: INTERNAL_ERROR (err 2)
    ❌ 下载仍然不完整 (203MB / 203MB)
    请重试或手动下载:
    https://obsidian.md/download
+
+╔══════════════════════════════════════════════════════════╗
+║   🧠 Hermes Vault 一键完成安装                         ║
+╚══════════════════════════════════════════════════════════╝
+
+📥 第一步：检查 Obsidian 下载状态
+   已下载: 203MB
+   校验文件完整性...
+   ✅ 下载完成！文件校验通过
+
+📦 第二步：安装 Obsidian
+   挂载 DMG...
+   挂载于: 1.12.7-universal
+   复制到 /Applications...
+cp: 1.12.7-universal/Obsidian.app: No such file or directory
