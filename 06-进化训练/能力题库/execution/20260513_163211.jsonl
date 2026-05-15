@@ -1,0 +1,1 @@
+{"id": "exec_file_ops_1778661131", "question": "请执行以下任务：\n1. 在 /tmp/test_hermes/ 目录下创建 3 个文件 a.txt, b.txt, c.txt\n2. 在 a.txt 中写入 'Hello Hermes'\n3. 将 a.txt 的内容复制到 b.txt\n4. 删除 c.txt\n5. 列出 /tmp/test_hermes/ 目录的内容确认结果\n请依次执行并报告每步结果。", "answer": "任务完成", "source": "generated", "difficulty": "intermediate"}

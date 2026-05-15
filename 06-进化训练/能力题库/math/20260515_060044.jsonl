@@ -1,0 +1,5 @@
+{"id": "math_hendrycks_18", "question": "Given that $a+b=5$ and $a^2+b^2=15$, find $a^3+b^3$.", "answer": "\\boxed{50}", "source": "Hendrycks MATH", "difficulty": 2, "type": "unknown"}
+{"id": "math_hendrycks_15", "question": "The real number $x$ satisfies\n\\[3x + \\frac{1}{2x} = 3.\\]Find\n\\[64x^6 + \\frac{1}{729x^6}.\\]", "answer": "\\boxed{\\frac{416}", "source": "Hendrycks MATH", "difficulty": 5, "type": "unknown"}
+{"id": "math_hendrycks_36", "question": "What is the largest possible area, in square centimeters, of a right triangle with one side of length 12 cm and another side of length 20 cm?", "answer": "\\boxed{120}", "source": "Hendrycks MATH", "difficulty": 4, "type": "unknown"}
+{"id": "math_hendrycks_13", "question": "Determine the remainder of 71 (mod 3).", "answer": "\\boxed{2}", "source": "Hendrycks MATH", "difficulty": 1, "type": "unknown"}
+{"id": "math_hendrycks_1", "question": "If $5x - 3 = 12$, what is the value of $5x + 3$?", "answer": "\\boxed{18}", "source": "Hendrycks MATH", "difficulty": 2, "type": "unknown"}

@@ -1,0 +1,2 @@
+{"id": "logic_1_1778731310", "question": "所有蝴蝶都喜欢花朵。有些昆虫不喜欢花朵。因此，有些昆虫不是蝴蝶。\n这个推理是否有效？请给出逻辑学分析。", "answer": "有效推理（三段论格式）", "source": "logic_puzzle", "difficulty": "intermediate"}
+{"id": "logic_2_1778731310", "question": "一个人要过河，带一只狼、一只羊和一筐白菜。船只能带一样东西。\n如果人不在时狼会吃羊，羊会吃白菜。\n请给出过河方案。", "answer": "先带羊过河→空手回→带狼过河→带羊回→带白菜过河→空手回→带羊过河", "source": "classic_puzzle", "difficulty": "intermediate"}

@@ -1,0 +1,1 @@
+{"id": "tech_doc_1778663659", "question": "请解释 Python 中 `asyncio.gather()` 和 `asyncio.create_task()` 的区别，并给出各自的最佳使用场景。", "answer": "gather并发收集多个协程结果；create_task创建后台任务后继续执行", "source": "technical_knowledge", "difficulty": "intermediate"}

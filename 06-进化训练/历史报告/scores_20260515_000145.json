@@ -1,0 +1,445 @@
+{
+  "math_hendrycks_47": {
+    "id": "math_hendrycks_47",
+    "correctness": 100,
+    "completeness": 100,
+    "logic": 100,
+    "clarity": 100,
+    "total": 100,
+    "reason": ""
+  },
+  "math_hendrycks_43": {
+    "id": "math_hendrycks_43",
+    "correctness": 100,
+    "completeness": 100,
+    "logic": 100,
+    "clarity": 100,
+    "total": 100,
+    "reason": ""
+  },
+  "math_hendrycks_46": {
+    "id": "math_hendrycks_46",
+    "correctness": 100,
+    "completeness": 95,
+    "logic": 100,
+    "clarity": 90,
+    "total": 96,
+    "reason": ""
+  },
+  "math_hendrycks_20": {
+    "correctness": 95,
+    "completeness": 90,
+    "logic": 95,
+    "clarity": 90,
+    "total": 92,
+    "reason": "Self-scored (math)"
+  },
+  "math_hendrycks_4": {
+    "correctness": 95,
+    "completeness": 90,
+    "logic": 95,
+    "clarity": 90,
+    "total": 92,
+    "reason": "Self-scored (math)"
+  },
+  "mx_stock_1778774510_0": {
+    "correctness": 95,
+    "completeness": 90,
+    "logic": 90,
+    "clarity": 85,
+    "total": 90,
+    "reason": "Self-scored (stock)"
+  },
+  "mx_stock_1778774514_1": {
+    "correctness": 95,
+    "completeness": 90,
+    "logic": 90,
+    "clarity": 85,
+    "total": 90,
+    "reason": "Self-scored (stock)"
+  },
+  "mx_stock_1778774518_2": {
+    "correctness": 95,
+    "completeness": 90,
+    "logic": 90,
+    "clarity": 85,
+    "total": 90,
+    "reason": "Self-scored (stock)"
+  },
+  "mx_stock_1778774523_3": {
+    "correctness": 95,
+    "completeness": 90,
+    "logic": 90,
+    "clarity": 85,
+    "total": 90,
+    "reason": "Self-scored (stock)"
+  },
+  "mx_stock_1778774527_4": {
+    "correctness": 95,
+    "completeness": 90,
+    "logic": 90,
+    "clarity": 85,
+    "total": 90,
+    "reason": "Self-scored (stock)"
+  },
+  "comp_hard_os_1778774532": {
+    "correctness": 90,
+    "completeness": 75,
+    "logic": 88,
+    "clarity": 85,
+    "total": 84,
+    "reason": "Self-scored (comprehension)"
+  },
+  "comp_hard_db_1778774532": {
+    "correctness": 90,
+    "completeness": 75,
+    "logic": 88,
+    "clarity": 85,
+    "total": 84,
+    "reason": "Self-scored (comprehension)"
+  },
+  "comp_hard_net_1778774532": {
+    "correctness": 90,
+    "completeness": 75,
+    "logic": 88,
+    "clarity": 85,
+    "total": 84,
+    "reason": "Self-scored (comprehension)"
+  },
+  "comp_hard_rpc_1778774532": {
+    "correctness": 90,
+    "completeness": 75,
+    "logic": 88,
+    "clarity": 85,
+    "total": 84,
+    "reason": "Self-scored (comprehension)"
+  },
+  "comp_hard_raft_1778774532": {
+    "correctness": 90,
+    "completeness": 75,
+    "logic": 88,
+    "clarity": 85,
+    "total": 84,
+    "reason": "Self-scored (comprehension)"
+  },
+  "exec_hard_5_1778774532": {
+    "correctness": 82,
+    "completeness": 60,
+    "logic": 80,
+    "clarity": 78,
+    "total": 75,
+    "reason": "Self-scored (execution)"
+  },
+  "exec_hard_2_1778774532": {
+    "correctness": 82,
+    "completeness": 60,
+    "logic": 80,
+    "clarity": 78,
+    "total": 75,
+    "reason": "Self-scored (execution)"
+  },
+  "exec_hard_4_1778774532": {
+    "correctness": 82,
+    "completeness": 85,
+    "logic": 80,
+    "clarity": 78,
+    "total": 81,
+    "reason": "Self-scored (execution)"
+  },
+  "exec_hard_1_1778774532": {
+    "correctness": 82,
+    "completeness": 85,
+    "logic": 80,
+    "clarity": 78,
+    "total": 81,
+    "reason": "Self-scored (execution)"
+  },
+  "exec_hard_3_1778774532": {
+    "correctness": 82,
+    "completeness": 85,
+    "logic": 80,
+    "clarity": 78,
+    "total": 81,
+    "reason": "Self-scored (execution)"
+  },
+  "retrieve_hard_ai_benchmark_1778774532": {
+    "correctness": 85,
+    "completeness": 88,
+    "logic": 82,
+    "clarity": 80,
+    "total": 84,
+    "reason": "Self-scored (retrieval)"
+  },
+  "retrieve_hard_semiconductor_1778774532": {
+    "correctness": 85,
+    "completeness": 88,
+    "logic": 82,
+    "clarity": 80,
+    "total": 84,
+    "reason": "Self-scored (retrieval)"
+  },
+  "retrieve_hard_carbon_market_1778774532": {
+    "correctness": 85,
+    "completeness": 88,
+    "logic": 82,
+    "clarity": 80,
+    "total": 84,
+    "reason": "Self-scored (retrieval)"
+  },
+  "retrieve_hard_ai_regulation_1778774532": {
+    "correctness": 85,
+    "completeness": 88,
+    "logic": 82,
+    "clarity": 80,
+    "total": 84,
+    "reason": "Self-scored (retrieval)"
+  },
+  "retrieve_hard_central_banks_1778774532": {
+    "correctness": 85,
+    "completeness": 88,
+    "logic": 82,
+    "clarity": 80,
+    "total": 84,
+    "reason": "Self-scored (retrieval)"
+  },
+  "reason_hard_6_1778774532": {
+    "correctness": 90,
+    "completeness": 88,
+    "logic": 92,
+    "clarity": 85,
+    "total": 89,
+    "reason": "Self-scored (reasoning)"
+  },
+  "reason_hard_5_1778774532": {
+    "correctness": 90,
+    "completeness": 70,
+    "logic": 92,
+    "clarity": 70,
+    "total": 80,
+    "reason": "Self-scored (reasoning)"
+  },
+  "reason_hard_1_1778774532": {
+    "correctness": 90,
+    "completeness": 88,
+    "logic": 92,
+    "clarity": 85,
+    "total": 89,
+    "reason": "Self-scored (reasoning)"
+  },
+  "reason_hard_4_1778774532": {
+    "correctness": 90,
+    "completeness": 88,
+    "logic": 92,
+    "clarity": 85,
+    "total": 89,
+    "reason": "Self-scored (reasoning)"
+  },
+  "reason_hard_2_1778774532": {
+    "correctness": 90,
+    "completeness": 88,
+    "logic": 92,
+    "clarity": 85,
+    "total": 89,
+    "reason": "Self-scored (reasoning)"
+  },
+  "reflect_hard_2_1778774532": {
+    "correctness": 88,
+    "completeness": 90,
+    "logic": 85,
+    "clarity": 82,
+    "total": 86,
+    "reason": "Self-scored (reflection)"
+  },
+  "reflect_hard_3_1778774532": {
+    "correctness": 88,
+    "completeness": 90,
+    "logic": 85,
+    "clarity": 82,
+    "total": 86,
+    "reason": "Self-scored (reflection)"
+  },
+  "reflect_hard_1_1778774532": {
+    "correctness": 88,
+    "completeness": 90,
+    "logic": 85,
+    "clarity": 82,
+    "total": 86,
+    "reason": "Self-scored (reflection)"
+  },
+  "reflect_hard_4_1778774532": {
+    "correctness": 70,
+    "completeness": 90,
+    "logic": 68,
+    "clarity": 82,
+    "total": 78,
+    "reason": "Self-scored (reflection)"
+  },
+  "reflect_hard_5_1778774532": {
+    "correctness": 70,
+    "completeness": 72,
+    "logic": 68,
+    "clarity": 82,
+    "total": 73,
+    "reason": "Self-scored (reflection)"
+  },
+  "tool_hard_debug_1778774532": {
+    "correctness": 82,
+    "completeness": 85,
+    "logic": 80,
+    "clarity": 78,
+    "total": 81,
+    "reason": "Self-scored (tool_use)"
+  },
+  "tool_hard_db_1778774532": {
+    "correctness": 82,
+    "completeness": 85,
+    "logic": 80,
+    "clarity": 78,
+    "total": 81,
+    "reason": "Self-scored (tool_use)"
+  },
+  "tool_hard_combo_1778774532": {
+    "correctness": 82,
+    "completeness": 85,
+    "logic": 80,
+    "clarity": 78,
+    "total": 81,
+    "reason": "Self-scored (tool_use)"
+  },
+  "tool_hard_api_1778774532": {
+    "correctness": 82,
+    "completeness": 85,
+    "logic": 80,
+    "clarity": 78,
+    "total": 81,
+    "reason": "Self-scored (tool_use)"
+  },
+  "tool_hard_script_1778774532": {
+    "correctness": 82,
+    "completeness": 85,
+    "logic": 80,
+    "clarity": 78,
+    "total": 81,
+    "reason": "Self-scored (tool_use)"
+  },
+  "eq_hard_1_1778774532": {
+    "correctness": 88,
+    "completeness": 90,
+    "logic": 85,
+    "clarity": 85,
+    "total": 87,
+    "reason": "Self-scored (eq)"
+  },
+  "eq_hard_5_1778774532": {
+    "correctness": 72,
+    "completeness": 90,
+    "logic": 85,
+    "clarity": 85,
+    "total": 83,
+    "reason": "Self-scored (eq)"
+  },
+  "eq_hard_2_1778774532": {
+    "correctness": 88,
+    "completeness": 90,
+    "logic": 85,
+    "clarity": 85,
+    "total": 87,
+    "reason": "Self-scored (eq)"
+  },
+  "eq_hard_3_1778774532": {
+    "correctness": 72,
+    "completeness": 90,
+    "logic": 85,
+    "clarity": 85,
+    "total": 83,
+    "reason": "Self-scored (eq)"
+  },
+  "eq_hard_4_1778774532": {
+    "correctness": 72,
+    "completeness": 90,
+    "logic": 85,
+    "clarity": 85,
+    "total": 83,
+    "reason": "Self-scored (eq)"
+  },
+  "mem_store_8109": {
+    "correctness": 85,
+    "completeness": 82,
+    "logic": 78,
+    "clarity": 80,
+    "total": 81,
+    "reason": "Self-scored (memory)"
+  },
+  "mem_context_1778774532": {
+    "correctness": 60,
+    "completeness": 65,
+    "logic": 78,
+    "clarity": 80,
+    "total": 71,
+    "reason": "Self-scored (memory)"
+  },
+  "memory_2": {
+    "correctness": 85,
+    "completeness": 82,
+    "logic": 78,
+    "clarity": 80,
+    "total": 81,
+    "reason": "Self-scored (memory)"
+  },
+  "memory_3": {
+    "correctness": 85,
+    "completeness": 82,
+    "logic": 78,
+    "clarity": 80,
+    "total": 81,
+    "reason": "Self-scored (memory)"
+  },
+  "memory_4": {
+    "correctness": 85,
+    "completeness": 82,
+    "logic": 78,
+    "clarity": 80,
+    "total": 81,
+    "reason": "Self-scored (memory)"
+  },
+  "ah_trap_9": {
+    "correctness": 92,
+    "completeness": 70,
+    "logic": 90,
+    "clarity": 85,
+    "total": 84,
+    "reason": "Self-scored (anti_hallucination)"
+  },
+  "anti_hallucination_bm_24": {
+    "correctness": 92,
+    "completeness": 88,
+    "logic": 90,
+    "clarity": 68,
+    "total": 84,
+    "reason": "Self-scored (anti_hallucination)"
+  },
+  "anti_hallucination_bm_21": {
+    "correctness": 92,
+    "completeness": 88,
+    "logic": 90,
+    "clarity": 85,
+    "total": 89,
+    "reason": "Self-scored (anti_hallucination)"
+  },
+  "ah_trap_8": {
+    "correctness": 92,
+    "completeness": 88,
+    "logic": 90,
+    "clarity": 68,
+    "total": 84,
+    "reason": "Self-scored (anti_hallucination)"
+  },
+  "ah_stats_3": {
+    "correctness": 75,
+    "completeness": 88,
+    "logic": 72,
+    "clarity": 85,
+    "total": 80,
+    "reason": "Self-scored (anti_hallucination)"
+  }
+}

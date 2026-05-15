@@ -1,0 +1,3 @@
+{"id": "math_fallback_3", "question": "一袋中有5个红球和3个白球，无放回地随机取3个球，求至少取到1个红球的概率。", "answer": "\\boxed{\\frac{55}{56}}", "source": "builtin_fallback", "difficulty": "intermediate", "type": "Probability"}
+{"id": "math_fallback_2", "question": "设A为3×3实矩阵，若A的特征值为1,2,3，求det(A²-3A+2I)的值。", "answer": "\\boxed{0}", "source": "builtin_fallback", "difficulty": "advanced", "type": "Linear Algebra"}
+{"id": "math_fallback_1", "question": "求定积分 ∫₀¹ x²eˣ dx", "answer": "\\boxed{e-2}", "source": "builtin_fallback", "difficulty": "advanced", "type": "Calculus"}

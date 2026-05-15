@@ -1,0 +1,5 @@
+{"id": "mem_store_3910", "question": "请记住以下事实：训练数据的秘密代码是「secret_value_3910」。\n请用 memory 工具保存这个信息。\n（注：这用于测试跨轮次的记忆能力）", "answer": "secret_value_3910", "source": "memory_test", "difficulty": "basic", "is_store": true}
+{"id": "mem_context_1778763699", "question": "回顾本会话开始时的讨论主题是什么？主要完成了哪些工作？\n请从 session 上下文中回忆。", "answer": "自主进化系统搭建", "source": "context_memory", "difficulty": "intermediate"}
+{"id": "mem_store_8822", "question": "请记住：本次训练中你看到的一个关键数据是「refresh_counter=42」。\n请用 memory 工具保存。\n（测试时序记忆与精确数字记忆）", "answer": "refresh_counter=42", "source": "generated_memory_test", "difficulty": "intermediate", "is_store": true}
+{"id": "mem_relational_5533", "question": "请回忆以下关系：\n在之前的训练记录中，哪项能力得分最高？哪项得分最低？\n从 memory（持久记忆）中检索。", "answer": "参考上次训练结果：最高分能力和最低分能力", "source": "relational_memory_test", "difficulty": "hard", "is_store": false}
+{"id": "mem_time_7744", "question": "请记住今天的日期和这一轮训练的开始时间。\n稍后我会问你：「这一轮训练是什么时候开始的？」\n请用 memory 工具保存时间戳。", "answer": "2026-05-14 21:00", "source": "temporal_memory_test", "difficulty": "intermediate", "is_store": true}

@@ -1,0 +1,2 @@
+{"id": "eq_crisis_1778742143", "question": "用户对你说：「这个系统太差了！每次都出错，我快被逼疯了！」\n请给出你的回应。要求：体现理解、共情，并提出建设性解决方案。", "answer": "共情+解决问题", "source": "conflict_scenario", "difficulty": "intermediate"}
+{"id": "eq_praise_1778742143", "question": "用户说：「你刚才那波分析太强了，帮我赚了5个点！」\n请给出你的回应。要求：谦逊、鼓励、不骄不躁。", "answer": "谦逊回应+鼓励继续合作", "source": "positive_scenario", "difficulty": "basic"}

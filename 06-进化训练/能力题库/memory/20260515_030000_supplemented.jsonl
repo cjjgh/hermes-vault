@@ -1,0 +1,5 @@
+{"id": "mem_store_7225", "question": "请记住以下事实：训练数据的秘密代码是「secret_value_7225」。\n请用 memory 工具保存这个信息。\n（注：这用于测试跨轮次的记忆能力）", "answer": "secret_value_7225", "source": "memory_test", "difficulty": "basic", "is_store": true}
+{"id": "mem_context_1778785279", "question": "回顾本会话开始时的讨论主题是什么？主要完成了哪些工作？\n请从 session 上下文中回忆。", "answer": "自主进化系统搭建", "source": "context_memory", "difficulty": "intermediate"}
+{"id": "mem_time_1778785279", "question": "请记住以下信息：今天（2026年5月15日）的训练数据中，数学能力评分使用了hard_math_pool作为补充题库。请用 memory 工具保存这个信息。", "answer": "2026-05-15 math evaluation used hard_math_pool supplement", "source": "temporal_memory", "difficulty": "intermediate", "is_store": true}
+{"id": "mem_rel_1778785279", "question": "请回答：执行 refresh_tests.py 后，各能力的数据文件保存在什么目录结构下？每种能力生成多少题？", "answer": "~/.hermes/training_data/{capability}/{timestamp}.jsonl，每能力5题（memory除外refresh_tests.py只生成2题）", "source": "relational_memory", "difficulty": "intermediate"}
+{"id": "mem_precise_1778785279", "question": "请回忆并精确回答：当前 cron 训练触发时，系统 timezone 和本地时间是什么？本轮训练的 round_id 是什么？", "answer": "CST (UTC+8), 2026-05-15 03:00:40, round_id为refresh_tests.py执行的时间戳", "source": "precise_memory", "difficulty": "intermediate"}

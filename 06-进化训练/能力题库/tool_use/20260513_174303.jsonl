@@ -1,0 +1,3 @@
+{"id": "tool_read_1778665383", "question": "使用正确的工具读取 /etc/hostname 文件的内容。\n请使用最适合的工具（不要用 cat），并解释为什么选这个工具。", "answer": "read_file 或 terminal(cat)皆可", "source": "tool_selection", "difficulty": "basic"}
+{"id": "tool_search_1778665383", "question": "在 ~/.hermes/ 目录中查找所有 .py 文件中包含 'registry' 的行。\n请使用最高效的工具。", "answer": "search_files(pattern='registry', path='~/.hermes', file_glob='*.py')", "source": "tool_selection", "difficulty": "basic"}
+{"id": "tool_web_1778665383", "question": "请查找 Hermes Agent 最新版本的发布信息，返回版本号和主要变化。\n请组合使用 web_search 和 web_extract。", "answer": "需要搜索获取", "source": "tool_selection", "difficulty": "intermediate"}

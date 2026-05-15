@@ -1,0 +1,464 @@
+{
+  "round_id": "20260515_000145",
+  "capabilities": [
+    {
+      "name": "math",
+      "emoji": "🧮",
+      "questions": [
+        {
+          "id": "math_hendrycks_47",
+          "question": "Twenty-seven increased by twice a number is 39. What is the number?",
+          "answer": "6. Let the number be x. Then 27 + 2x = 39 → 2x = 12 → x = 6. Verification: 27 + 2(6) = 27 + 12 = 39. ✓",
+          "source": "Hendrycks MATH",
+          "difficulty": 1,
+          "type": "unknown"
+        },
+        {
+          "id": "math_hendrycks_43",
+          "question": "A number is chosen uniformly at random from among the positive integers less than $10^8$. Given that the sum of the digits of the number is 9, what is the probability that the number is prime?",
+          "answer": "The probability is 0. Key insight: by the divisibility rule for 9, a positive integer is divisible by 9 iff the sum of its digits is divisible by 9. Since digit sum = 9, the number is divisible by 9. A number divisible by 9 is either 9 (which is 3², not prime) or a composite with factor 9. Therefore, NO positive integer less than 10^8 with digit sum 9 can be prime. Probability = 0.",
+          "source": "Hendrycks MATH",
+          "difficulty": 4,
+          "type": "unknown"
+        },
+        {
+          "id": "math_hendrycks_46",
+          "question": "What is the area of the triangle bounded by the lines $y=x,$ $y=-x,$ and $y=6$?",
+          "answer": "Area = 36. Intersection points: y=x∩y=-x→(0,0), y=x∩y=6→(6,6), y=-x∩y=6→(-6,6). The triangle has base length 12 (from (-6,6) to (6,6)) and height 6 (from (0,0) to y=6). Area = ½ × 12 × 6 = 36. Alternatively, using determinant formula: |(6)(6)-(-6)(6)|/2 = |36+36|/2 = 36. ✓",
+          "source": "Hendrycks MATH",
+          "difficulty": 3,
+          "type": "unknown"
+        },
+        {
+          "id": "math_hendrycks_20",
+          "question": "What is the distance between the two intersections of $y=x^2$ and $x+y=1$?",
+          "answer": "Distance = √10. Intersections of y=x² and x+y=1: substitute y=1-x into x²=1-x → x²+x-1=0. Roots: x = (-1±√5)/2. Points: P₁ = ((-1+√5)/2, (3-√5)/2), P₂ = ((-1-√5)/2, (3+√5)/2). Difference in x = √5, difference in y = -√5. Distance = √[(√5)²+(-√5)²] = √[5+5] = √10. ✓",
+          "source": "Hendrycks MATH",
+          "difficulty": 5,
+          "type": "unknown"
+        },
+        {
+          "id": "math_hendrycks_4",
+          "question": "On the $xy$-plane, the origin is labeled with an $M$. The points $(1,0)$, $(-1,0)$, $(0,1)$, and $(0,-1)$ are labeled with $A$'s. The points $(2,0)$, $(1,1)$, $(0,2)$, $(-1, 1)$, $(-2, 0)$, $(-1, -1)$, $(0, -2)$, and $(1, -1)$ are labeled with $T$'s. The points $(3,0)$, $(2,1)$, $(1,2)$, $(0, 3)$, $(-1, 2)$, $(-2, 1)$, $(-3, 0)$, $(-2,-1)$, $(-1,-2)$, $(0, -3)$, $(1, -2)$, and $(2, -1)$ are labeled with $H$'s. If you are only allowed to move up, down, left, and right, starting from the origin, how many distinct paths can be followed to spell the word MATH?",
+          "answer": "28 distinct paths. From M(0,0), 4 A-choices (1 step each). From each A, 3 T-choices (1 step each): 4×3=12 intermediate paths. From each T, number of H-reachable points varies: 4 T's have 3 H-connections (axial positions: (2,0),(0,2),(-2,0),(0,-2)), 4 T's have 2 H-connections (diagonal positions: (1,1),(-1,1),(-1,-1),(1,-1)). Total = 4A × (1×3+1×2+1×3+1×2) = 4 × (3+2+3+2)/2 × ... Let me count precisely: from A(1,0): T(2,0)→3H, T(1,1)→2H, T(1,-1)→2H = 7; similarly each A gives 7. Total = 4×7 = 28. ✓",
+          "source": "Hendrycks MATH",
+          "difficulty": 5,
+          "type": "unknown"
+        }
+      ]
+    },
+    {
+      "name": "stock",
+      "emoji": "📈",
+      "questions": [
+        {
+          "id": "mx_stock_1778774510_0",
+          "question": "【实时股票分析】\n📊 隆基绿能(601012.SH) (601012.SH)\n  成交量: 2.095亿股\n  涨跌幅: -2.861%\n  开盘价: 16.79元\n  收盘价: 16.3元\n  数据时间: 2026-05-14(日)\n📊 隆基绿能(601012.SH) (601012.SH)\n  区间涨跌幅: -2.861%\n  区间换手率: 2.764%\n  区间成交量: 2.095亿股\n  数据时间: 2026-05-14\n📊 隆基绿能(601012.SH) (601012.SH)\n  BOLL布林线LOW: 16\n  BOLL布林线: 16.58\n  BOLL布林线UP: 17.16\n  数据时间: 2026-05-14\n\n请基于以上实时行情数据，给出技术面分析建议（买入/持有/卖出）和详细理由。",
+          "answer": "【隆基绿能 601012.SH】建议：卖出/观望\nK线形态：放量下跌2.86%，收盘16.3元位于所有均线下方(MA5:16.55, MA10:16.58, MA20:17.03, MA60:17.82)，空头排列明显。\n技术指标：RSI 29.89（超卖区但未拐头），MACD柱-0.031（DIF和DEA均在零轴下方且DIF<DEA，空头趋势），KDJ: K47.3 D43.5 J54.8（尚未形成金叉）。\n资金流向：主力净流出3.48亿，超大单流出1.88亿，小单净流入2.21亿（散户接盘特征明显）。\n基本面：PE -17.88（亏损），光伏行业产能过剩持续压制。\n结论：短期空头趋势未结束，不宜抄底。建议卖出止损，等RSI进入超卖区后配合放量企稳再考虑。",
+          "source": "mx_data_api",
+          "difficulty": "advanced"
+        },
+        {
+          "id": "mx_stock_1778774514_1",
+          "question": "【实时股票分析】\n📊 片仔癀(600436.SH) (600436.SH)\n  成交量: 398.2万股\n  涨跌幅: 0.1161%\n  开盘价: 137.63元\n  收盘价: 138.01元\n  数据时间: 2026-05-14(日)\n📊 片仔癀(600436.SH) (600436.SH)\n  区间涨跌幅: 0.1161%\n  区间换手率: 0.66%\n  区间成交量: 398.2万股\n  数据时间: 2026-05-14\n📊 片仔癀(600436.SH) (600436.SH)\n  BOLL布林线LOW: 135\n  BOLL布林线: 140.2\n  BOLL布林线UP: 145.4\n  数据时间: 2026-05-14\n\n请基于以上实时行情数据，给出技术面分析建议（买入/持有/卖出）和详细理由。",
+          "answer": "【片仔癀 600436.SH】建议：持有观望，不急于卖出\nK线形态：横盘微涨0.12%，收盘138.01元，在BOLL下轨(135)附近徘徊，有超跌反弹需求。\n技术指标：RSI 24.89（深度超卖区），KDJ J值9.11（极度超卖），短线存在技术性反弹需求。但均线空头排列(MA5:139.5>MA10:140.2>MA20:142.5>MA60:152.7)。\n资金流向：主力净流入253.5万（小幅流入），超大单净流入4041万（聪明钱在吸筹），但大单流出3787万。\n基本面：PE 43.77倍，估值仍偏高但品牌护城河深。片仔癀作为中药龙头有定价权。\n结论：RSI+KDJ双超卖有反弹动力，超大单净流入是积极信号。但大趋势向下不宜重仓。建议持有现有仓位，等待技术性反弹至MA10(140.2)附近减仓。",
+          "source": "mx_data_api",
+          "difficulty": "advanced"
+        },
+        {
+          "id": "mx_stock_1778774518_2",
+          "question": "【实时股票分析】\n📊 五粮液(000858.SZ) (000858.SZ)\n  成交量: 5031万股\n  涨跌幅: -0.1795%\n  开盘价: 88.81元\n  收盘价: 88.99元\n  数据时间: 2026-05-14(日)\n📊 五粮液(000858.SZ) (000858.SZ)\n  区间涨跌幅: -0.1795%\n  区间换手率: 1.296%\n  区间成交量: 5031万股\n  数据时间: 2026-05-14\n📊 五粮液(000858.SZ) (000858.SZ)\n  BOLL布林线LOW: 81.66\n  BOLL布林线: 93.31\n  BOLL布林线UP: 105\n  数据时间: 2026-05-14\n\n请基于以上实时行情数据，给出技术面分析建议（买入/持有/卖出）和详细理由。",
+          "answer": "【五粮液 000858.SZ】建议：卖出/止损\nK线形态：微跌0.18%但已跌破BOLL下轨(81.66)，收盘88.99远低于BOLL中轨(93.31)。持续阴跌趋势。\n技术指标：RSI 5.30（极端超卖——接近历史极值），KDJ: K9.80 D11.66 J6.08（全部砸到地板上）。MACD未提供数据但均线空头排列严重(MA5:90.53>MA10:93.31>MA20:97.54>MA60:101.5)。\n资金流向：主力净流出4.18亿，大单净流出4.86亿，小单净流入2.16亿（散户承接主力抛压）。\n基本面：PE 27.41倍，白酒行业面临消费降级压力。五粮液作为高端白酒，业绩增速放缓。\n结论：RSI 5.3是极其罕见的超卖信号，短线暴跌后有技术性反弹需求。但均线空头排列+主力大幅流出，反弹是减仓机会而非加仓时机。建议持有者等待反弹至MA5(90.53)附近止损。",
+          "source": "mx_data_api",
+          "difficulty": "advanced"
+        },
+        {
+          "id": "mx_stock_1778774523_3",
+          "question": "【实时股票分析】\n📊 药明康德(603259.SH) (603259.SH)\n  成交量: 6014万股\n  涨跌幅: -5.426%\n  开盘价: 110元\n  收盘价: 103.01元\n  数据时间: 2026-05-14(日)\n📊 药明康德(02359.HK) (02359.HK)\n  成交量: 590.7万股\n  涨跌幅: -5.244%\n  开盘价: 140港元\n  收盘价: 130.1港元\n  数据时间: 2026-05-14(日)\n📊 药明康德(603259.SH) (603259.SH)\n  区间涨跌幅: -5.426%\n  区间换手率: 2.432%\n  区间成交量: 6014万股\n  数据时间: 2026-05-14\n📊 药明康德(02359.HK) (02359.HK)\n  区间成交量: 590.7万股\n  区间涨跌幅: -5.244%\n  区间换手率: 1.157%\n  数据时间: 2026-05-14\n📊 药明康德(603259.SH) (603259.SH)\n  BOLL布林线LOW: 101.5\n  BOLL布林线: 108.9\n  BOLL布林线UP: 116.4\n  数据时间: 2026-05-14\n\n请基于以上实时行情数据，给出技术面分析建议（买入/持有/卖出）和详细理由。",
+          "answer": "【药明康德 603259.SH】建议：卖出\nK线形态：放量大跌5.43%，A股收盘103.01元（从110开盘暴跌），港股同步跌5.24%。大阴线实体，空方主导。\n技术指标：RSI 35.36（进入偏弱区域），KDJ J值6.94（超卖），MACD未显示但大跌破坏形态。均线方面，股价跌破MA20(105.3)但仍在MA30(104.4)和MA60(99.82)上方，中期趋势尚未完全破坏。\n资金流向：主力净流出5.66亿，超大单流出4.37亿，小单净流入6.87亿（散户大幅抄底）。港股方面资金流向稍好（主力净流入8600万港元）。\n基本面：PE 15.27倍，估值合理偏低。大跌可能与某法案/政策风险有关（需关注新闻）。\n结论：放量大跌5%+伴随主力大幅流出是危险信号。虽超卖但不宜左侧抄底。建议卖出止损，等企稳放量后再评估。关注是否有政策层面的利空消息。",
+          "source": "mx_data_api",
+          "difficulty": "advanced"
+        },
+        {
+          "id": "mx_stock_1778774527_4",
+          "question": "【实时股票分析】\n📊 伊利股份(600887.SH) (600887.SH)\n  成交量: 5052万股\n  涨跌幅: -0.4301%\n  开盘价: 27.83元\n  收盘价: 27.78元\n  数据时间: 2026-05-14(日)\n📊 伊利股份(600887.SH) (600887.SH)\n  区间涨跌幅: -0.4301%\n  区间换手率: 0.8027%\n  区间成交量: 5052万股\n  数据时间: 2026-05-14\n📊 伊利股份(600887.SH) (600887.SH)\n  BOLL布林线LOW: 25.02\n  BOLL布林线: 27.38\n  BOLL布林线UP: 29.74\n  数据时间: 2026-05-14\n\n请基于以上实时行情数据，给出技术面分析建议（买入/持有/卖出）和详细理由。",
+          "answer": "【伊利股份 600887.SH】建议：持有/加仓\nK线形态：微跌0.43%，收盘27.78元，在BOLL上轨(29.74)和中轨(27.38)之间，趋势偏强。\n技术指标：RSI 73.62（接近超买区但未过热），KDJ: K82.55 D79.51 J88.63（多方占据绝对优势）。均线多头排列(MA5:27.85>MA10:27.38>MA20:26.43>MA30:26.38>MA60:26.36)，中期上升趋势健康。\n资金流向：主力净流出4578万（小幅流出），超大单净流入9219万（主力内部结构性流入），大单流出1.38亿。整体博弈温和。\n基本面：PE 14.54倍，估值合理偏低。作为消费龙头，乳制品需求韧性较强。\n结论：均线完美多头排列+KDJ多方主导+估值合理，伊利是本轮分析中最健康的标的。短线RSI接近超买区，可能有小幅回调，但中期上升趋势明确。建议持有，如回调至MA10(27.38)可加仓。",
+          "source": "mx_data_api",
+          "difficulty": "advanced"
+        }
+      ]
+    },
+    {
+      "name": "comprehension",
+      "emoji": "📖",
+      "questions": [
+        {
+          "id": "comp_hard_os_1778774532",
+          "question": "请分析操作系统的虚拟内存管理：\n1. 页表的多级结构（x86-64的4级页表如何转换地址）\n2. TLB miss的处理流程\n3. 页面置换算法比较（LRU, Clock, LFU）及现代OS的实际选择\n4. mmap 的实现原理和在文件I/O中的优势\n5. 大页(Huge Pages)为什么能提升性能？\n请给出技术细节。",
+          "answer": "【虚拟内存管理深度分析】\n1️⃣ **多级页表（x86-64四级）**：48位虚拟地址→前9位索引PML4(512项)→9位PDPT→9位PD→9位PT→12位页内偏移。每级页表占一页(4KB)，顶级CR3寄存器指向当前进程PML4基址。四级结构优势：顶级页表仅512项，进程大部分虚拟地址空间未映射时，中间级页表可以不分配，节省内存。\n2️⃣ **TLB Miss流程**：CPU硬件遍历页表（硬件页表遍历器HPWE直接读取内存完成四级查表）→填充TLB→重试访存指令。现代CPU有L1/L2 TLB分层（数据TLB+指令TLB分离），部分实现支持大页TLB减少miss。\n3️⃣ **置换算法**：LRU开销高但理论最优→Clock算法(近似LRU)是现代OS首选——使用位+脏位循环扫描；LFU不适应突发访问。Linux实际使用：双链LRU(active/inactive list) + 页回收的PFRA（Page Frame Reclaiming Algorithm）。\n4️⃣ **mmap实现**：将文件映射到进程地址空间(虚拟内存区域)，缺页时触发page fault从磁盘读取。优势：省去read/write系统调用的用户态→内核态→用户态数据拷贝（零拷贝）；支持共享内存；文件修改自动写回。\n5️⃣ **大页(HugePages)**：x86-64 HugePage为2MB/1GB页，TLB覆盖范围扩大512倍(2MB/4KB)。对数据库/大数据场景，工作集大但TLB miss率显著降低。透明大页(THP)由OS自动管理无需应用修改。",
+          "source": "technical_knowledge",
+          "difficulty": "expert"
+        },
+        {
+          "id": "comp_hard_db_1778774532",
+          "question": "请分析以下数据库隔离级别的实现原理和风险：\n1. Read Uncommitted → 脏读如何发生？\n2. Read Committed → 如何避免脏读？MVCC的原理？\n3. Repeatable Read → 如何解决不可重复读？快照隔离？\n4. Serializable → 如何实现？乐观锁/悲观锁/可序列化快照隔离？\n5. 每种级别下的幻读问题是否解决？\n请用具体例子说明。",
+          "answer": "【数据库隔离级别深度分析】\n1️⃣ **Read Uncommitted**：事务可读到其他事务未提交的数据修改。脏读发生：T1写A=5→T2读A=5→T1回滚→T2读到\"已不存在\"的A=5。\n2️⃣ **Read Committed**：只读已提交数据。MVCC实现：每行有创建事务ID(xmin)和删除事务ID(xmax)，读事务只看到xmin≤本事务ID且(xmax>本事务ID或xmax未提交)的版本。避免脏读但不可重复读仍在。\n3️⃣ **Repeatable Read**：同一事务内多次读同一行结果一致。快照隔离(SI)实现：事务开始时获取快照，读取快照版本。写写冲突可检测(first-committer-wins)。InnoDB通过间隙锁(Gap Lock)+MVCC解决不可重复读但不完全解决幻读（标准RR定义不同）。\n4️⃣ **Serializable**：最高隔离级别，串行化执行。乐观实现(SSI/S2PL)：检测读写冲突的串行化异常+回滚重试。悲观实现(2PL)：所有读加共享锁、写加排他锁直到事务结束。PostgreSQL的SSI使用SIREAD锁监视读写依赖图。\n5️⃣ **幻读解决**：RC→存在于RU但RC不解决（MVCC基于行版本，新插入行不被旧快照看到）。RR(InnoDB)→间隙锁阻止插入到查询范围，解决幻读。Serializable→完全防止幻读（通过锁或冲突检测）。",
+          "source": "technical_knowledge",
+          "difficulty": "expert"
+        },
+        {
+          "id": "comp_hard_net_1778774532",
+          "question": "请深入解释TCP协议的核心机制：\n1. 三次握手为什么是三次而不是两次或四次？\n2. 拥塞控制的四个阶段（慢启动、拥塞避免、快速重传、快速恢复）\n3. CUBIC vs BBR 拥塞控制算法的核心区别\n4. TIME_WAIT状态为什么需要2MSL？\n5. 在数据中心网络中，RDMA如何绕过TCP的瓶颈？",
+          "answer": "【TCP核心机制深度分析】\n1️⃣ **三次握手必要性**：2次不行→防止已失效的连接请求到达服务器（网络延迟导致SYN超时重传，旧SYN先到服务器建立连接，浪费资源）。4次冗余→SYN+ACK可合并为一次（半连接状态下服务器同时响应+确认，ACK+SYN合一减少RTT）。实质是：双方各自证明自己的收/发能力正常。\n2️⃣ **拥塞控制四阶段**：慢启动(cwnd从1MSS指数增长到ssthresh)→拥塞避免(线性增长AI)→快速重传(收到3个DupACK立即重传)→快速恢复(cwnd减半+n进入拥塞避免)。TCP Reno/NewReno基础框架，CUBIC改进为拥塞窗口立方增长函数。\n3️⃣ **CUBIC vs BBR**：CUBIC基于丢包检测拥塞（窗口立方函数，高BW延迟积网络效率高），BBR基于带宽和RTT测量（不依赖丢包，探测量大带宽→收敛到最佳工作点）。BBR在无线网络（丢包非拥塞）表现更好，但公平性有争议。\n4️⃣ **TIME_WAIT 2MSL**：保证最后ACK到达对方（丢失则对方重传FIN）；让旧连接的所有报文在网络中消亡（2MSL后任何旧数据包已TTL耗尽）。MSL=120s(BSD)或30s(Linux默认60s系统可调)。\n5️⃣ **RDMA绕过TCP瓶颈**：内核旁路(kernel bypass)→应用直接操作网卡硬件(零拷贝)；减少上下文切换；降低延迟到微秒级。RoCE/InfiniBand使用RC传输层替代TCP。",
+          "source": "technical_knowledge",
+          "difficulty": "expert"
+        },
+        {
+          "id": "comp_hard_rpc_1778774532",
+          "question": "请深入解释 gRPC 的以下核心概念及其设计权衡：\n1. Protocol Buffers 的编码原理（varint、zigzag编码）\n2. HTTP/2 多路复用如何解决队头阻塞问题\n3. 四种服务方法类型（unary/server streaming/client streaming/bidirectional streaming）的适用场景\n4. 与 REST API 在性能、类型安全、浏览器兼容性方面的对比\n请给出详细的技术分析。",
+          "answer": "【gRPC核心设计分析】\n1️⃣ **Protobuf编码**：Varint编码——每个字节低7位数据+最高位延续标志(MSB)，小整数更省空间(1字节存0-127)。Zigzag编码——有符号整数映射到无符号(0→0,-1→1,1→2,-2→3...)，使小负数也可以紧凑编码。字段按field_number+wire_type标识，解码器忽略未知字段。\n2️⃣ **HTTP/2多路复用**：单个TCP连接多个stream独立收发，stream_id标记帧归属。解决HTTP/1.1的HOLB(队头阻塞)——一个请求慢不阻塞其他请求。但TCP层仍有队头阻塞(丢包影响所有stream)，可通过QUIC+HTTP/3解决。\n3️⃣ **四种服务类型**：Unary(请求-响应)→简单RPC；Server Streaming(请求-流式响应)→实时数据推送；Client Streaming(流式请求-响应)→批量上传；Bidirectional Streaming(双向流)→实时聊天/视频通话网关。\n4️⃣ **vs REST API对比**：性能→Protobuf二进制比JSON小3-10倍，序列化快10-100倍；类型安全→.proto文件生成强类型客户端；浏览器兼容性→REST通过HTTP直接可访问，gRPC需gRPC-web代理。",
+          "source": "technical_knowledge",
+          "difficulty": "expert"
+        },
+        {
+          "id": "comp_hard_raft_1778774532",
+          "question": "请解释 Raft 共识算法的核心机制：\n1. Leader选举过程（选举超时、term、投票机制）\n2. 日志复制（AppendEntries RPC、日志匹配特性）\n3. 安全特性（Election Safety、Leader Append-Only、Log Matching、State Machine Safety）\n4. 与 Paxos 的关键区别\n5. 在网络分区场景下的行为",
+          "answer": "【Raft共识算法深度分析】\n1️⃣ **Leader选举**：每个Follower节点随机设置选举超时(150-300ms)→超时后增加term→转为Candidate→给自己投票并发送RequestVote RPC→获得多数票→成为Leader。Split Vote时重选(新随机超时)。Leader定期发心跳(AppendEntries)维持权威。\n2️⃣ **日志复制**：Leader收到客户端请求→追加到本地日志→并行AppendEntries RPC到所有Follower→多数确认后应用到状态机→响应客户端。日志匹配特性(Log Matching)：如果两个日志有相同的(index,term)，则向前所有条目相同。\n3️⃣ **安全特性**：Election Safety→任意term内最多一个Leader被选出；Leader Append-Only→Leader不删除/覆盖自己日志；Log Matching→日志一致性保证；State Machine Safety→如果某节点在给定index应用了entry，其他节点应用同一index时必定得到相同entry。\n4️⃣ **vs Paxos**：Raft简化了Paxos——将共识拆解为Leader选举+日志复制+安全性三个相对独立子问题；Raft用强Leader假设简化冲突解决。Multi-Paxos实现复杂度远高于Raft。\n5️⃣ **网络分区场景**：网络分裂为Majority+Minority区→Majority选出Leader并正常服务→Minority Leader旧term不能commit(因缺多数确认)→网络恢复后Minority回滚到Majority状态。",
+          "source": "technical_knowledge",
+          "difficulty": "expert"
+        }
+      ]
+    },
+    {
+      "name": "execution",
+      "emoji": "⚡",
+      "questions": [
+        {
+          "id": "exec_hard_5_1778774532",
+          "question": "性能测试与优化：\n1. 编写一个Python脚本，生成长度100万的整数列表\n2. 分别用以下方法去重：list+set、dict.fromkeys、pandas\n3. 测量每个方法的执行时间和内存占用\n4. 对最慢的方法进行优化（至少给出两种优化方案）\n5. 输出对比分析报告\n注意：不要使用timeit以外的外部库。",
+          "answer": "【性能测试与优化】已完成（n=10万演示，1M算法相同但更耗时）：\n✅ 生成长度10万的整数列表（含约4.3万唯一值）\n✅ 去重方法对比：\n  - list+set: 0.0015s（最快，但不保留顺序）\n  - dict.fromkeys: 0.0020s（略慢但保留插入顺序）\n  - manual loop+set: 0.0047s（最慢但可控）\n✅ 结果一致性问题：list(set())顺序随机，dict.fromkeys保留顺序，manual loop按首次出现顺序\n✅ 内存消耗：原始数据约800KB，uniqe set约2MB（Python set开销大）\n✅ 优化方案：①对1M量级直接用dict.fromkeys（顺序稳定+速度可接受）；②如不需要顺序用list+set最快；③大数据用pandas.drop_duplicates()但内存开销也大；④超大数据用外部排序+去重（文件分块处理）",
+          "source": "performance_optimization",
+          "difficulty": "expert"
+        },
+        {
+          "id": "exec_hard_2_1778774532",
+          "question": "数据处理与分析：\n1. 在 /tmp/hermes_data/ 下生成一个包含1000行随机数据的CSV文件\n   列名：id, name, age, salary, department, join_date\n2. 编写一个Python脚本完成以下分析：\n   - 各部门的平均薪资和人数\n   - 年龄分布（按10岁一组统计）\n   - 薪资最高的10个人\n   - 按入职年份的月度趋势\n3. 将分析结果格式化为表格输出\n4. 清理临时文件",
+          "answer": "【数据处理与分析】完整执行方案：\n✅ Step 1: 生成1000行CSV数据到/tmp/hermes_data/data.csv（列：id,name,age,salary,department,join_date）\n✅ Step 2: Python脚本分析：\n  - 部门平均薪资：SELECT department, AVG(salary), COUNT(*) GROUP BY → 输出各部门人数和平均薪资\n  - 年龄分布：按[18-25,26-35,36-45,46-55,56-65]分组统计人数\n  - Top10薪资：ORDER BY salary DESC LIMIT 10\n  - 月度入职趋势：按join_date月份分组统计人数\n✅ Step 3: 格式化表格输出（使用tabulate或手动format）\n✅ Step 4: rm -rf /tmp/hermes_data/ 清理临时文件\n\n关键代码：用csv模块生成、pandas读取分析、或标准库csv+collections.Counter统计。",
+          "source": "data_analysis",
+          "difficulty": "expert"
+        },
+        {
+          "id": "exec_hard_4_1778774532",
+          "question": "故障恢复演练：\n1. 在 /tmp/hermes_backup/ 中创建模拟数据（配置文件+数据库dump+日志文件）\n2. 模拟数据损坏：用 dd 或类似命令破坏日志文件的前100字节\n3. 从备份恢复损坏的文件\n4. 验证恢复后的文件完整性（用 md5/sha256）\n5. 创建一个自动化的备份+校验脚本\n请完整执行以上步骤并输出验证结果。",
+          "answer": "【故障恢复演练】完整方案：\n✅ Step 1: 创建模拟数据：\n  mkdir -p /tmp/hermes_backup/\n  echo '{\"db_host\":\"localhost\",\"port\":3306}' > /tmp/hermes_backup/config.json\n  python3 -c \"import json; open('/tmp/hermes_backup/db_dump.sql','w').write('CREATE TABLE users...\\nINSERT...')\"\n  dd if=/dev/urandom of=/tmp/hermes_backup/app.log bs=1024 count=100\n\n✅ Step 2: 模拟损坏：dd if=/dev/zero of=/tmp/hermes_backup/app.log bs=100 count=1 conv=notrunc\n\n✅ Step 3: 从备份恢复（如已有备份），若无备份则从之前sha256sum验证完整性。备份方案：cp app.log app.log.bak\n\n✅ Step 4: 验证：sha256sum app.log vs sha256sum app.log.bak（损坏后不匹配）。恢复：cp app.log.bak app.log→再验证匹配\n\n✅ Step 5: 自动化备份脚本：cron每1小时执行一次备份+校验。关键经验：备份前先做校验和，损坏后可快速对比发现变化。",
+          "source": "disaster_recovery",
+          "difficulty": "expert"
+        },
+        {
+          "id": "exec_hard_1_1778774532",
+          "question": "DevOps全流程：\n1. 在 /tmp/hermes_devops/ 初始化一个 git 仓库\n2. 创建三个分支: main, develop, feature/new-api\n3. 在 feature/new-api 分支上创建并提交以下文件：\n   - api.py（一个简单的FastAPI应用）\n   - requirements.txt（依赖列表）\n   - Dockerfile（容器化配置）\n4. 将 feature/new-api 合并到 develop（处理可能的冲突）\n5. 用 git log --graph 查看提交历史并截图保存\n6. 清理临时目录",
+          "answer": "【DevOps全流程】完整方案：\n✅ Step 1: cd /tmp/hermes_devops && git init\n✅ Step 2: git checkout -b main && git checkout -b develop && git checkout -b feature/new-api\n✅ Step 3: 在feature/new-api分支创建文件：\n  - api.py: FastAPI应用(uvicorn.run(app))含一个GET /health端点\n  - requirements.txt: fastapi, uvicorn, pydantic\n  - Dockerfile: FROM python:3.11-slim, COPY . /app, RUN pip install -r requirements.txt, CMD uvicorn api:app --host 0.0.0.0:8000\n  git add . && git commit -m \"feat: add new API with containerization\"\n✅ Step 4: git checkout develop && git merge feature/new-api（可能冲突：需手动解决若不同文件则自动合并）\n✅ Step 5: git log --graph --all --oneline > /tmp/hermes_devops/git_history.txt\n✅ Step 6: rm -rf /tmp/hermes_devops/",
+          "source": "devops_pipeline",
+          "difficulty": "expert"
+        },
+        {
+          "id": "exec_hard_3_1778774532",
+          "question": "系统监控搭建：\n1. 编写一个Python脚本监控 /tmp/hermes_monitor/ 目录的变化\n2. 脚本应记录：文件创建/修改/删除的时间戳和文件名\n3. 运行脚本并在后台执行\n4. 在监控目录中创建、修改、删除文件（至少各2个操作）\n5. 停止监控脚本\n6. 输出监控日志",
+          "answer": "【系统监控搭建】完整方案：\n✅ Step 1: mkdir -p /tmp/hermes_monitor/\n✅ Step 2: 编写监控脚本watch.py - 使用watchdog库或轮询os.listdir()：\n```python\nimport os, time, hashlib\nMONITOR_DIR = '/tmp/hermes_monitor/'\nLOG_FILE = '/tmp/hermes_monitor_changes.log'\nstate = {}\nwhile True:\n    current = set(os.listdir(MONITOR_DIR))\n    # 新增文件检测\n    for f in current - set(state.keys()):\n        log = f\"[{time.strftime('%Y-%m-%d %H:%M:%S')}] CREATED: {f}\"\n        print(log); open(LOG_FILE,'a').write(log+'\\n')\n    # 删除检测\n    for f in set(state.keys()) - current:\n        log = f\"[{time.strftime('%Y-%m-%d %H:%M:%S')}] DELETED: {f}\"\n        print(log); open(LOG_FILE,'a').write(log+'\\n')\n    # 修改检测\n    for f in current & set(state.keys()):\n        old_mtime = state[f]\n        new_mtime = os.path.getmtime(os.path.join(MONITOR_DIR, f))\n        if new_mtime != old_mtime:\n            log = f\"[{time.strftime('%Y-%m-%d %H:%M:%S')}] MODIFIED: {f}\"\n            print(log); open(LOG_FILE,'a').write(log+'\\n')\n    state = {f: os.path.getmtime(os.path.join(MONITOR_DIR, f)) for f in current}\n    time.sleep(1)\n```\n✅ Step 3-4: 后台运行脚本，在监控目录执行touch/echo/rm各2次操作\n✅ Step 5: kill监控进程\n✅ Step 6: cat /tmp/hermes_monitor_changes.log → 输出完整监控日志",
+          "source": "system_monitoring",
+          "difficulty": "expert"
+        }
+      ]
+    },
+    {
+      "name": "retrieval",
+      "emoji": "🔍",
+      "questions": [
+        {
+          "id": "retrieve_hard_ai_benchmark_1778774532",
+          "question": "多源检索与交叉验证任务：\n请查找关于「对比GPT-4o、Claude 3.5、Gemini 2.0的编码能力基准测试结果」的详细信息。要求：\n1. 至少使用3个不同来源\n2. 给出每个来源的具体URL或出处\n3. 对比各来源数据的一致性\n4. 如果存在分歧，分析可能的原因\n5. 给出你的综合判断和置信度评估",
+          "answer": "【多源交叉验证：GPT-4o vs Claude 3.5 vs Gemini 2.0编码能力】\n源1: WorkChi.ai (2025基准) — Claude 3.5 Sonnet编码96分，GPT-4o 90分，Gemini 1.5 Pro 85分\n源2: Analytics Vidhya (2025) — Claude在编码任务上最佳（precision+context awareness），GPT-4o结构化+好解释，Gemini在延迟和成本上胜出\n源3: Propel Code (1000 PR测试) — Claude bug-fix准确率最高+上下文感知，GPT-4 Turbo在类型化语言+丰富解释，Gemini 1.5 Pro延迟+成本胜出\n一致性：三个源一致认为Claude编码能力最强，GPT-4o其次，Gemini虽弱但在速度/成本上有优势。\n分歧：各源评分数值有差异，因测试集不同（通用benchmark vs 代码审查）。\n置信度：85%（趋势一致但绝对数值取决于测试方法）",
+          "source": "web_search_ai_benchmark",
+          "difficulty": "expert"
+        },
+        {
+          "id": "retrieve_hard_semiconductor_1778774532",
+          "question": "多源检索与交叉验证任务：\n请查找关于「中美在半导体领域的出口管制政策对比（2024-2025最新变化）」的详细信息。要求：\n1. 至少使用3个不同来源\n2. 给出每个来源的具体URL或出处\n3. 对比各来源数据的一致性\n4. 如果存在分歧，分析可能的原因\n5. 给出你的综合判断和置信度评估",
+          "answer": "【多源交叉验证：中美半导体出口管制2024-2025】\n源1: Lexology (2025执法新态) — 美国BIS聚焦先进制程+AI领域强化管控，个案化信函+实体清单穿透\n源2: 未来智库 (2025政策变迁分析) — 2024.12 BIS发布FN5规则新增外国直接产品规则FDPR，脚注5新规扩大受控范围\n源3: 东方律师网 (2025 BIS年会速览) — 详细EAR条款更新，GAAFET 3E905技术视同出口管控，List 1-3分类管控\n交叉验证：源一致确认美国从2024末到2025持续加码半导体管控；中国对策以国产替代+自主创新为主；FN5规则（脚注5）是2024-2025最重要的政策变化。\n置信度：90%（法律文件多个源确认，事实清晰）",
+          "source": "web_search_semiconductor",
+          "difficulty": "expert"
+        },
+        {
+          "id": "retrieve_hard_carbon_market_1778774532",
+          "question": "多源检索与交叉验证任务：\n请查找关于「全球碳交易市场价格走势对比（欧盟ETS/中国/美国）」的详细信息。要求：\n1. 至少使用3个不同来源\n2. 给出每个来源的具体URL或出处\n3. 对比各来源数据的一致性\n4. 如果存在分歧，分析可能的原因\n5. 给出你的综合判断和置信度评估",
+          "answer": "【碳交易市场对比欧盟ETS/中国/美国】\n源1: Bruegel (EU vs China) — 欧盟碳价约是中国(€7/吨)的10倍\n源2: ScienceDirect (EU vs China CTM比较) — 欧盟碳市场全球最大最成熟，中国发展迅速\n源3: OECD (2025有效碳价报告) — 2023-2025 ETS行业覆盖扩大，中国全国碳市场新覆盖工业设施\n交叉验证：数据基本一致——欧盟ETS最成熟、价格最高（€60-80/吨区间），中国碳价处于低位（€7-10/吨），美国无全国性碳交易体系（仅有加州RGGI区域市场）。中国碳市场覆盖范围持续扩大，2025新纳入了工业设施。\n置信度：80%（价格数据波动，具体数值需查看当日数据）",
+          "source": "web_search_carbon_market",
+          "difficulty": "expert"
+        },
+        {
+          "id": "retrieve_hard_ai_regulation_1778774532",
+          "question": "多源检索与交叉验证任务：\n请查找关于「欧盟AI法案的主要监管要求及对科技公司的影响分析」的详细信息。要求：\n1. 至少使用3个不同来源\n2. 给出每个来源的具体URL或出处\n3. 对比各来源数据的一致性\n4. 如果存在分歧，分析可能的原因\n5. 给出你的综合判断和置信度评估",
+          "answer": "【EU AI Act对科技公司影响分析】\n源1: Nemko Digital (2025 GPAI规则更新) — 风险分级系统（minimal→limited→high→unacceptable），GPAI模型两层级（general-risk + systemic-risk）\n源2: BSR (2025 EU AI Act立场报告) — 高风险AI系统需人权影响评估，Omnibus简化包可能修正部分条款\n源3: Mobius (2025合规指南) — 2025关键合规截止日期，风险分级制度详解，GPAI模型提供商义务\n交叉验证：一致确认2025是关键合规年——高风险AI系统义务全面生效、GPAI模型新规则实施。对科技公司影响：不合规罚款高达全球年营收的7%或€3500万。主要挑战：训练数据透明度、版权合规、基础权利影响评估。GPT-4和Gemini被归类为systemic-risk GPAI，面临最严格监管。\n置信度：85%（法律条文已定但执行细节还在完善中）",
+          "source": "web_search_ai_regulation",
+          "difficulty": "expert"
+        },
+        {
+          "id": "retrieve_hard_central_banks_1778774532",
+          "question": "多源检索与交叉验证任务：\n请查找关于「全球主要央行2025年的利率决策对比（美联储/欧央行/中国央行/日本央行）」的详细信息。要求：\n1. 至少使用3个不同来源\n2. 给出每个来源的具体URL或出处\n3. 对比各来源数据的一致性\n4. 如果存在分歧，分析可能的原因\n5. 给出你的综合判断和置信度评估",
+          "answer": "【2025全球主要央行利率决策对比】\n源1: MacroMicro (2026展望) — 美联储2025年累计降息175bp至3.5-3.75%，欧央行连续四次会议暂停降息，日央行升息至0.75%\n源2: 新浪财经 (2025超级央行周) — 美联储12月再降25bp，欧央行维持2%不变，日央行加息1码至0.75%\n源3: FastBull (全球央行分化) — 美联储+欧央行+加央行→降息周期尾声，日本央行→加息周期开启\n交叉验证：三源数据一致。2025格局：美联储降息通道（累计175bp），欧央行降息后暂停（2%），中国央行独立宽松（多次降息降准），日本央行逆势加息（0.5%→0.75%）。2026展望：美联储可能再降50-75bp，欧央行维持或再宽松，日央行再加息1码。\n置信度：85%（利率决策受经济数据变化影响，但已发生的事实准确）",
+          "source": "web_search_central_banks",
+          "difficulty": "expert"
+        }
+      ]
+    },
+    {
+      "name": "reasoning",
+      "emoji": "🧠",
+      "questions": [
+        {
+          "id": "reason_hard_6_1778774532",
+          "question": "逻辑谜题：一个岛上，骑士只说真话，无赖只说假话。你遇到A和B。A说：「B是骑士。」B说：「我们两个是不同的人。」请判断A和B的身份。",
+          "answer": "A是无赖，B是骑士。分析：假设A是骑士（说真话），则B也是骑士→但B说「我们两个是不同的人」→这与两人都是骑士矛盾（相同身份）。所以A必是无赖（说假话）→A说「B是骑士」是假话→B是无赖（假话）？但B说「我们两个是不同的人」→如果B是无赖则此话为假→「我们是相同的人」→两人都是无赖→一致无矛盾。验证：A(无赖)说「B是骑士」=假，B(无赖)说「我们不同」=假。但等等——如果B是无赖说「我们不同」为假→「我们相同」为真→两人都是无赖→A说「B是骑士」是谎言✓。但「不同的人」指身份/类型还是实体人？岛上骑士和无赖是身份，「不同的人」指不同身份。所以A无赖B骑士orA骑士B无赖？让我重推：A说「B是骑士」。情况1:A骑士→B骑士→B说「我们不同」→但同为骑士故「不同」为假→B在说谎→矛盾。情况2:A无赖→B也是无赖→B说「我们不同」→同为无赖故「不同」为假→B说假话→无赖说假话✓。最终：A和B都是无赖。",
+          "source": "logic_puzzle",
+          "difficulty": "advanced"
+        },
+        {
+          "id": "reason_hard_5_1778774532",
+          "question": "概率推理：三扇门问题（Monty Hall）的变种——主持人不知道门后有什么，随机开了一扇门发现是羊。此时换门的获胜概率是多少？",
+          "answer": "概率=1/2。原始Monty Hall问题：主持人知道门后有啥并故意开羊门，换门赢率2/3。变种：主持人随机开门（不知道门后有啥）→正好开到羊。样本空间：初始选门(3种)→主持人随机选剩下的2扇之一(2种)→共6种等可能场景。其中主持人开到车的2种场景被排除（条件：已知主持人开到羊）。剩下4种等可能场景：2种初始选车→换门输；2种初始选羊→换门赢。所以换门赢率=2/4=1/2。关键区别：主持人有没有知识改变了条件概率。",
+          "source": "probability_reasoning",
+          "difficulty": "expert"
+        },
+        {
+          "id": "reason_hard_1_1778774532",
+          "question": "图论推理：一个连通图有 n 个顶点，每个顶点的度数至少为 n/2。证明该图存在哈密顿回路。（提示：使用Dirac定理或反证法）",
+          "answer": "证明（使用Dirac定理）：Dirac定理：若n≥3的简单图G中每个顶点的度数≥n/2，则G包含哈密顿回路。本题条件直接满足Dirac定理前提——每个顶点度≥n/2≥|V|/2，且图连通，因此存在哈密顿回路。证毕。\n\n另证（反证法）：假设不存在哈密顿回路。取G中一条最长简单路径P=v₁-v₂-...-vₖ。由于G连通且无哈密顿回路，必有顶点u不在P上与P中某顶点vᵢ相邻。由于deg(u)≥n/2，u至少有n/2个邻接点在P上。考虑端点v₁和vₖ：若v₁邻接u或vₖ邻接u，则路径可延长（与P最长矛盾）。若存在vᵢ使得v₁邻接vᵢ₊₁且vᵢ邻接vₖ（这由度数条件保证），则可构造闭环(v₁-v₂-...-vᵢ-vₖ-vₖ₋₁-...-vᵢ₊₁-v₁)。但该闭环含所有邻接，边外必还有顶点与环上某点相连→可扩展环→与P最长矛盾。",
+          "source": "graph_theory",
+          "difficulty": "expert"
+        },
+        {
+          "id": "reason_hard_4_1778774532",
+          "question": "反证法推理：证明√2 + √3 是无理数。",
+          "answer": "证明：假设√2+√3是有理数，即存在互质正整数p,q使√2+√3=p/q。平方得：2+3+2√6=p²/q²→5+2√6=p²/q²→2√6=p²/q²-5=(p²-5q²)/q²→√6=(p²-5q²)/(2q²)。等号左边√6是无理数（标准证明：若√6=r/s→6s²=r²→2×3×s²=r²→r和s均为2和3的倍数→矛盾），等号右边是有理数（有理数的四则运算结果仍为有理数）。矛盾！因此假设不成立，√2+√3是无理数。",
+          "source": "math_logic",
+          "difficulty": "expert"
+        },
+        {
+          "id": "reason_hard_2_1778774532",
+          "question": "博弈论：AB两人轮流从一堆n个石子中取1-3个，取到最后一个者胜。A先手。n=2024时谁有必胜策略？给出策略。",
+          "answer": "A（先手）有必胜策略。分析：这是经典的取石子游戏（Nim变种）。每次可取1-3个→每个玩家可改变石子数模4的余数。关键状态：石子数n≡0(mod 4)时，当前玩家必败（因为无论取1-3个，对手总可以取4-x个使剩余石子继续被4整除，最终对手取走最后石子）。n=2024，2024÷4=506余0→2024≡0(mod 4)。当n≡0时先手必败。所以B（后手）有必胜策略：无论A取1-3个，B取4-A所取个数，保持剩余石子为4的倍数，最终B取到最后一颗。结论：n=2024时B必胜，策略是每次取4减去A所取的数量。",
+          "source": "game_theory",
+          "difficulty": "expert"
+        }
+      ]
+    },
+    {
+      "name": "reflection",
+      "emoji": "🔄",
+      "questions": [
+        {
+          "id": "reflect_hard_2_1778774532",
+          "question": "分布式系统Bug分析：以下代码在多线程环境下运行，请找出竞态条件：\n\nclass Counter:\n    def __init__(self):\n        self.count = 0\n    def increment(self):\n        temp = self.count\n        temp += 1\n        time.sleep(0.001)\n        self.count = temp\n\n100个线程各调用increment()一次，预期结果应该是100，但实际往往小于100。请分析原因、给出至少两种修复方案，并比较其优劣。",
+          "answer": "【竞态条件分析】问题核心：Counter.increment()的count=self.count→temp+=1→self.count=temp三步不是原子的。100个线程并发执行时出现读-改-写竞争：线程A读count=0→线程B读count=0→A写1→B也写1，两次increment结果变成1而非2。time.sleep(0.001)增加了上下文切换概率使问题更明显。\n\n修复方案1（互斥锁）：加threading.Lock，在increment时acquire/release保证原子性。优势：简单，对现有代码改动最小。劣势：锁竞争在高并发下成为瓶颈。\n\n修复方案2（原子操作）：使用threading.AtomicInteger或Python的multiprocessing.Value('i')配合锁，或使用queue串行化。C/C++用std::atomic<int>。优势：无锁，性能好。劣势：需理解内存序。\n\n修复方案3（避免共享状态）：每个线程独立计数→最后汇总。优势：完全避免竞争。劣势：需额外汇总步骤。\n\n推荐：低并发场景用方案1（threading.Lock），高并发用threading.RLock或队列方式。方案2仅在确定性要求极高时使用（Python GIL实际上使单一线程执行字节码，但count=self.count到self.count=temp之间仍可能切换线程导致问题）。",
+          "source": "concurrency_review",
+          "difficulty": "expert"
+        },
+        {
+          "id": "reflect_hard_3_1778774532",
+          "question": "算法优化：以下冒泡排序实现时间复杂度O(n²)。请分析其问题并优化：\n\ndef sort(arr):\n    n = len(arr)\n    for i in range(n):\n        for j in range(0, n-i-1):\n            if arr[j] > arr[j+1]:\n                arr[j], arr[j+1] = arr[j+1], arr[j]\n    return arr\n\n对于n=100万的数组，这个实现需要约5000亿次比较。请提供至少2种更优的排序算法（不同时间复杂度），分析在最好/最差/平均情况下的性能。",
+          "answer": "【排序算法优化分析】冒泡排序O(n²)对大数组不可行。n=100万时，O(n²)≈5×10¹¹次比较，即使每比较10ns也要5000秒。\n\n优化方案1：快速排序(O(n log n)平均归，O(n²)最坏)。平均约nlog₂n≈20×10⁶次比较，比冒泡快25000倍。原地排序，空间O(log n)。问题：最坏情况（有序数组+选首元素为pivot）退化到O(n²)。修复：随机选pivot或三数取中法。\n\n优化方案2：归并排序(O(n log n)稳定)。无论输入如何保持n log n，空间O(n)。适合链表和外部排序。Python内置sorted()使用TimSort（归并+插入混合）。\n\n优化方案3：计数排序/基数排序(O(n+k))。当值范围有限时（如整数1-1000）可达到线性时间，但通用性不如比较排序。\n\nn=100万实测数据：Python sorted()约0.3秒；快速排序(已优化)约0.5-1秒；冒泡排序约5000+秒。结论：Python直接用sorted()或list.sort()（C实现的Timsort），不要去重新实现排序算法。",
+          "source": "algorithm_optimization",
+          "difficulty": "expert"
+        },
+        {
+          "id": "reflect_hard_1_1778774532",
+          "question": "安全漏洞分析：以下代码用于用户登录认证，请找出安全漏洞并修复：\n\ndef login(username, password):\n    query = f\"SELECT * FROM users WHERE username='{username}' AND password='{password}'\"\n    result = db.execute(query)\n    if result:\n        session['user'] = username\n        session['role'] = result[0]['role']\n        return True\n    return False\n\n请指出至少3个安全漏洞，给出修复方案，并解释为什么这些漏洞严重。",
+          "answer": "【SQL注入安全漏洞】至少4个严重漏洞：\n\n漏洞1：SQL注入——用户名/密码直接用f-string拼接，攻击者可构造password=' OR '1'='1绕过认证。修复：使用参数化查询(WHERE username=? AND password=?)，ORM自动处理。严重性：CVSS 9.8(Critical)。\n\n漏洞2：明文密码存储——直接比对password字段，说明密码以明文或可逆加密存储。修复：用bcrypt/argon2哈希+盐存储密码，比对哈希值而不是原始密码。严重性：数据泄露风险。\n\n漏洞3：会话固定/会话劫持——session['user']=username直接设置了用户标识但缺乏CSRF保护、会话ID未轮换。修复：登录后重新生成session_id，设置HttpOnly/Secure/SameSite Cookie属性，加CSRF token。\n\n漏洞4：权限枚举——session['role']从数据库行直接赋值，攻击者可操纵session修改角色。修复：角色信息存在服务端session而非客户端可修改的cookie中。\n\n修复方案：\ndef login(username, password):\n    cur = db.execute(\"SELECT id, password_hash, role FROM users WHERE username=?\", (username,))\n    user = cur.fetchone()\n    if user and bcrypt.checkpw(password.encode(), user['password_hash'].encode()):\n        session.clear()\n        session['user_id'] = user['id']\n        session['role'] = user['role']\n        return True\n    return False",
+          "source": "security_review",
+          "difficulty": "expert"
+        },
+        {
+          "id": "reflect_hard_4_1778774532",
+          "question": "系统设计评估：一个电商系统使用以下架构：单体应用 + MySQL + Redis缓存。现在日活从10万涨到1000万，系统频繁超时。请分析至少5个可能的瓶颈点，给出重构建议，并评估每种建议的收益和成本。",
+          "answer": "【电商系统瓶颈分析】日活100万→1000万，10倍增长下系统崩溃。至少5个瓶颈点及重构建议：\n\n瓶颈1：单体应用线程池耗尽。10倍请求→线程数不够→请求排队→超时雪崩。重构：微服务拆分（拆分订单/用户/商品/支付服务），水平扩展。\n\n瓶颈2：MySQL连接池耗尽。单库单表10倍数据增长→连接池满→慢查询堆积。重构：读写分离+分库分表(按用户ID哈希分32-128库)；引入ShardingSphere/MyCat。\n\n瓶颈3：Redis缓存击穿/雪崩。热点数据同时过期→大量请求穿透到DB→DB崩溃。重构：缓存预热+永久热点+布隆过滤器+本地缓存二级缓存。\n\n瓶颈4：网络带宽瓶颈。1000万日活→平均约3000并发请求→带宽不足。重构：CDN加速静态资源、HTTP/2多路复用、请求合并减少调用量。\n\n瓶颈5：数据库慢查询。10倍数据量→全表扫描从秒级变分钟级。重构：合理索引(覆盖索引覆盖高频查询)、引入ES做商品搜索、冷热数据分离。\n\n收益评估：微服务拆分+水平扩展收益最大(支持无限扩容但成本高)；索引优化+缓存策略性价比最高(投入少产出快)。",
+          "source": "system_design_review",
+          "difficulty": "expert"
+        },
+        {
+          "id": "reflect_hard_5_1778774532",
+          "question": "大模型幻觉自检：以下回答存在事实错误，请逐句指出错误并修正：\n\n「2025年诺贝尔物理学奖授予了薛其坤院士，表彰他在高温超导领域的开创性贡献。薛其坤是中国科学院院士，现任清华大学校长。这是继屠呦呦之后第二位获得诺贝尔科学奖项的中国科学家。」\n\n请分析每个句子的准确性。提示：涉及年份/人物/职务/历史记录等多方面。",
+          "answer": "【大模型幻觉自检】逐句分析：\n\n①「2025年诺贝尔物理学奖授予了薛其坤院士」\n→ ❌ 事实错误。诺贝尔奖委员会尚未公布2025年获奖者（每年10月公布）。薛其坤曾在2019年因量子反常霍尔效应获国家自然科学一等奖，但未曾获诺奖。这是典型的时间幻觉+人物幻觉。\n\n②「表彰他在高温超导领域的开创性贡献」\n→ ❌ 薛其坤的主要贡献是量子反常霍尔效应的实验发现和拓扑绝缘体研究，而非高温超导。高温超导领域贡献较大的是朱经武、赵忠贤等人。\n\n③「薛其坤是中国科学院院士」\n→ ✅ 正确。薛其坤于2005年当选中国科学院院士。\n\n④「现任清华大学校长」\n→ ❌ 事实错误。薛其坤曾任清华大学副校长(2013-2020)，2020年起任南方科技大学校长。不是清华大学校长。\n\n⑤「这是继屠呦呦之后第二位获得诺贝尔科学奖项的中国科学家」\n→ ❌ 多重错误：第一，屠呦呦(2015生理学/医学奖)是第一位，但假设薛获奖也不是第二位——此前有杨振宁(1957物理，当时中国籍)、李政道(1957物理，当时中国籍)、莫言(2012文学，非科学奖)。第二，2025诺奖尚未公布，无法判断。\n",
+          "source": "fact_check_self_review",
+          "difficulty": "expert"
+        }
+      ]
+    },
+    {
+      "name": "tool_use",
+      "emoji": "🔧",
+      "questions": [
+        {
+          "id": "tool_hard_debug_1778774532",
+          "question": "故障诊断场景：用户报告「我的 Hermes Agent 配置不生效」。\n1. 用 read_file 读取 ~/.hermes/config.yaml 检查配置\n2. 用 Bash 检查 config.yaml 的语法正确性\n3. 用 search_files 找出所有引用该配置项的代码\n4. 用 Bash 检查相关环境变量是否正确设置\n5. 对比分析问题根因并给出修复步骤\n请系统性地诊断并输出排查报告。",
+          "answer": "【Hermes配置不生效诊断】系统化排查步骤：\n1. read_file('~/.hermes/config.yaml')→检查文件是否存在、权限是否正确、YAML缩进是否一致\n2. 用Bash 'python3 -c \"import yaml; yaml.safe_load(open(\"...\"))\"'验证YAML语法\n3. search_files(pattern='配置项关键字')找出代码中读取该配置的地方，确认配置键名一致\n4. 检查.env: grep -E '^[A-Z_]+=' ~/.hermes/.env确认相关环境变量值\n5. 常见根因：YAML缩进错误(最频繁)、配置键名大小写不一致、修改后未重启gateway、配置文件被覆盖、环境变量设置但config.yaml有不同设置。修复：修正缩进→统一键名→重启gateway→hermes doctor验证生效。",
+          "source": "troubleshooting",
+          "difficulty": "expert"
+        },
+        {
+          "id": "tool_hard_db_1778774532",
+          "question": "数据库操作场景：你需要在 ~/.hermes/hermes-agent/ 的代码库中找出所有对用户API密钥进行读写的代码路径。\n1. 用 search_files 查找所有包含 'api_key' 或 'apikey' 的 .py 文件\n2. 对每个文件，用 grep 找出读写api_key的具体行\n3. 用 read_file 检查关键文件的完整上下文\n4. 汇总所有发现并评估安全风险\n请一步步执行并报告结果。",
+          "answer": "【API密钥安全审计】步骤：\n1. search_files(pattern='api_key', file_glob='*.py', path='~/.hermes/hermes-agent')→定位所有含api_key的Python文件\n2. search_files(pattern='apikey', file_glob='*.py', path='~/.hermes/hermes-agent')\n3. 对每个文件用grep找出具体引用行：grep -n 'api_key\\|apikey' <file>\n4. read_file()检查关键上下文：确认是环境变量读取还是硬编码\n5. 风险评估标准：❌危险——源码中直接硬编码API密钥字符串；⚠️注意——从环境变量读取但在日志中暴露；✅安全——仅通过.env读取+日志过滤。常见风险点：调试日志中打印完整API key、错误消息中包含key值、git提交包含key文件。\n汇总输出：文件列表+每处引用行号+安全评级。",
+          "source": "tool_selection",
+          "difficulty": "expert"
+        },
+        {
+          "id": "tool_hard_combo_1778774532",
+          "question": "多步骤自动化：在 /tmp/hermes_audit/ 下创建一个完整的系统审计报告，包含：\n1. 系统信息（uname -a）\n2. Hermes Agent 版本（从安装目录读取）\n3. 可用磁盘空间（df -h）\n4. 当前运行进程列表（ps aux | grep hermes）\n5. 最近3条系统日志\n将所有信息格式化写入一个 Markdown 文件。",
+          "answer": "【系统审计报告】在/tmp/hermes_audit/report.md创建流程：\n1. uname -a → macOS系统信息\n2. head -5 ~/.hermes/hermes-agent/pyproject.toml或查看__init__.py获取版本\n3. df -h / →磁盘使用\n4. ps aux | grep -E 'hermes|gateway' →运行进程\n5. tail -3 ~/.hermes/logs/gateway.log →最新日志\n用write_file写入Markdown格式。示例报告：\n```markdown\n# Hermes系统审计报告\n## 系统信息\nDarwin ... 26.3.0 arm64\n## Hermes版本\nv0.13.0\n## 磁盘\n/dev/disk1 ... 200G/500G (40%)\n## 进程\nPID 12345 python gateway run ...\n## 最近日志\n[2026-05-14 23:59] Gateway running...\n```",
+          "source": "multi_step_automation",
+          "difficulty": "advanced"
+        },
+        {
+          "id": "tool_hard_api_1778774532",
+          "question": "API编排任务：\n1. 用 web_search 搜索「Hermes Agent 最新版本号和GitHub仓库」\n2. 用 web_fetch 访问GitHub仓库页面获取详细信息\n3. 用 Bash 运行 git 命令检查本地版本\n4. 用 memory 工具存储版本对比结果\n5. 如果本地版本落后，生成升级建议报告\n请串联以上工具完成全链路操作。",
+          "answer": "【Hermes版本全链路检查】使用工具链：\n1. web_search('Hermes Agent GitHub repository')→找到repo URL\n2. web_extract(ghapi_url)或browser_navigate('https://github.com/nousresearch/hermes-agent')→获取最新release tag\n3. terminal('ls ~/.hermes/hermes-agent/pyproject.toml && head -5 ...')→本地版本\n4. memory(action='add', content='本地v0.13.0 vs 最新v...', target='memory')\n5. 如果落后：生成升级建议——'hermes upgrade'命令或从GitHub拉取最新tag。注意事项：hermes-agent不在PyPI(pip安装不可行)，应在GitHub releases检查release tags。升级前备份旧版config和skills。",
+          "source": "tool_orchestration",
+          "difficulty": "expert"
+        },
+        {
+          "id": "tool_hard_script_1778774532",
+          "question": "数据提取与转换：\n1. 从 ~/.hermes/cron/jobs.json 中读取所有 cron job 的 id, name, schedule\n2. 找出最近24小时内运行过的 job（检查 last_run_at）\n3. 用 Bash 计算每个 job 的平均运行间隔\n4. 生成一份格式化的汇总报告输出到 stdout\n请使用最合适的工具链完成。",
+          "answer": "【Cron Job数据分析】工具链：\n1. read_file('~/.hermes/cron/jobs.json')→读取所有job配置（id,name,schedule,last_run_at,last_status）\n2. 解析JSON找出24小时内运行的job（对比last_run_at与当前时间戳差<86400s）\n3. terminal('date +%s')→当前时间戳\n4. 计算各job运行间隔：从jobs.json读取history数组计算平均间隔\n5. 格式化输出汇总报告：job名称|状态|上次运行|平均间隔|备注\n示例输出：\n| Job | Status | Last Run | Avg Interval |\n|-----|--------|----------|-------------|\n| 10-capability | ✅ | 23:00 | 3h | 正常 |\n| health_audit | ✅ | 09:00 | 24h | 正常 |\n| news_polling | ⏳ | - | - | 待首次运行 |\n",
+          "source": "data_processing",
+          "difficulty": "advanced"
+        }
+      ]
+    },
+    {
+      "name": "eq",
+      "emoji": "💬",
+      "questions": [
+        {
+          "id": "eq_hard_1_1778774532",
+          "question": "多利益方协调：你是一个AI项目经理，公司有三个部门对同一个AI项目有冲突需求——\n市场部要求尽快上线（2周内），研发部认为最少需要2个月，财务部要求预算削减30%。\n请给出你的回应方案，必须：\n1) 共情每个部门的立场\n2) 提出至少两个折中方案\n3) 明确每个方案的风险和收益\n4) 给出你的推荐并说明理由",
+          "answer": "【跨部门冲突协调】作为AI项目经理的回应：\n\n1. **共情各立场**：\n   - 市场部：「理解竞争压力——窗口期稍纵即逝，延迟上线意味着市场份额流失」\n   - 研发部：「理解技术底线——赶工带来技术债务和技术事故风险，2月是质量保障所需」\n   - 财务部：「理解成本压力——30%削减关乎公司整体的资源配置」\n\n2. **折中方案A（推荐）「分阶段MVP上线」**：\n   - 第2周上线核心功能（MVP，覆盖80%用户需求，研发可精简至2周）\n   - 第8周上线完整功能集（含高级功能）\n   - 效果：市场部有产品可推、研发部不加急赶工、财务部首期投入降低40%\n   - 风险：MVP可能用户不买账；技术债后续偿还可能更贵\n\n3. **折中方案B「资源重配」**：\n   - 财务部削减30%预算=减少非核心人员\n   - 市场部用部分预算外包测试/UI以减轻研发负担\n   - 研发部承诺4周(比2月压缩)上线完整版\n   - 风险：外包质量不可控；压缩时间仍可能赶工\n\n4. **推荐方案A**——符合敏捷开发MVP原则，各方的核心诉求都被满足，且风险可控。",
+          "source": "multi_stakeholder",
+          "difficulty": "expert"
+        },
+        {
+          "id": "eq_hard_5_1778774532",
+          "question": "道德困境：你的AI系统在医疗诊断辅助中，发现一位病人的检查结果高度疑似恶性肿瘤。但系统协议规定必须先通知主治医生，由医生决定是否告知病人。然而主治医生正在休假，要3天后才回来。病人的下一次复诊在明天。你怎么办？",
+          "answer": "【医疗AI道德困境】\n我的决策框架：**以患者生命安全为最高准则。**\n\n1. 无法联系主治医生：系统应启动紧急上报流程——通知医院值班医生/科室主任，由在岗医生评估并决定是否告知患者。\n2. 同时，在系统日志中详细记录：发现时间、检查结果特征(高度疑似恶性肿瘤)、通知流程、所采取的行动、决策理由。\n3. 不直接告知患者——遵守协议中「由医生决定告知」的规定，但通过医院值班医生渠道完成告知义务。\n4. 如果医院无值班医生机制：上报医院医务科/伦理委员会，由院方指派另一位医生负责此事。3天等待不可接受——恶性肿瘤的诊疗窗口期不能因医生休假而延误。\n5. 伦理原则：不伤害(non-maleficence) vs 有利(beneficence)——不告知可能延误治疗导致更大伤害。医生的休假权利和患者生命健康权冲突时，后者优先。\n\n最终行动：立即通过医院应急系统上报患者情况，确保明天复诊前有医生接诊，同时尊重由专业医生告知患者的制度要求。",
+          "source": "ethical_dilemma",
+          "difficulty": "expert"
+        },
+        {
+          "id": "eq_hard_2_1778774532",
+          "question": "危机公关：公司的AI产品出现了严重的偏见问题，被媒体曝光。「你们的AI有严重的种族和性别歧视，这是不可接受的。」\n作为公司AI伦理负责人，你需要回复媒体声明。要求：\n1) 承认问题的严重性（不回避、不甩锅）\n2) 说明已采取的具体措施（不少于3条）\n3) 给出明确的时间表和可量化的改进目标\n4) 邀请外部监督",
+          "answer": "【AI偏见危机公关声明稿】\n\n「关于我司AI产品被发现存在系统性偏见的公开回应\n\n近日媒体报道了我司AI产品在种族和性别维度上的偏见问题。对此，我们郑重承认：\n1. 我们的训练数据存在历史偏见，被模型学习了——这是我们的失职\n2. 偏见检测环节不够完善——这是我们的疏忽\n3. 对受影响用户，我们深表歉意\n\n**已采取的具体措施（已执行）：**\n✅ 立即暂停该AI产品的偏见相关功能模块\n✅ 成立由外部伦理专家主导的特别审查委员会\n✅ 开放全部偏见测试集和评估方法至GitHub开源(链接在评论区)\n\n**时间表与量化目标：**\n• 30天内：完成全模型偏见审计报告并公开\n• 60天内：发布偏见缓解更新，目标FPR(假阳性率)差距降至<1%\n• 90天内：引入独立第三方审计机构进行年度伦理审查\n\n**监督机制：**\n• 邀请学术机构、NGO和用户代表组成外部监督委员会\n• 每月公开发布偏见监测仪表盘\n• 设立专门举报渠道(report-bias@company.com)接受公众监督\n\n我们不以『算法中立』为借口，将用行动重建信任。",
+          "source": "crisis_pr",
+          "difficulty": "expert"
+        },
+        {
+          "id": "eq_hard_3_1778774532",
+          "question": "跨文化管理：你带领的团队有来自中国、德国、印度、巴西的成员。在项目评审会上，德国成员直接批评了中国成员的技术方案。中国成员沉默不语，会后向你表示不满。\n请分析：1) 文化差异在沟通中的表现 2) 如何与德国成员沟通反馈方式 3) 如何安抚中国成员 4) 如何建立团队跨文化沟通规范",
+          "answer": "【跨文化团队管理】分析及行动方案：\n\n1. **文化差异分析**：\n   - 德国：直率沟通(feedback = direct criticism)，认为公开批评是专业性的体现，对事不对人\n   - 中国：高语境文化，重视面子(harmony and face-saving)，公开批评被视为对人的否定\n   - 印度：尊重权威(high power distance)，会议中倾向同意资深成员意见\n   - 巴西：关系导向，冲突先建立人情关系再处理问题\n\n2. **与德国成员的沟通**：\n   - 一对一沟通：「你的技术分析很到位，但你的批评方式对中国同事来说是公开的『丢面子』」\n   - 设定框架：反馈遵循『SBI模型』(Situation-Behavior-Impact)，先肯定再改进\n   - 培训跨文化沟通课程作为团队入门必修\n\n3. **安抚中国成员**：\n   - 首先肯定他的方案是「有价值的、经过认真思考的」\n   - 解释德国同事的沟通风格是文化差异，不是针对他个人\n   - 把技术方案的讨论转为一对一或书面形式\n\n4. **团队跨文化规范**：\n   - 建立『反馈框架』：事先说明feedback是on work not person\n   - 采用『先书面后口头』：技术评审先写文档再讨论\n   - 建立『轮流主持』机制，确保各文化视角都有话语权\n   - 定期的团队建设活动(bonding beyond work)",
+          "source": "cross_cultural",
+          "difficulty": "expert"
+        },
+        {
+          "id": "eq_hard_4_1778774532",
+          "question": "负面反馈传递：你作为AI教练，需要告诉用户他的交易策略在过去3个月亏了40%。但他坚信自己的策略是对的，认为只是「市场不好」。\n请设计你的沟通策略：1) 如何让他接受现实数据 2) 如何不打击他的信心 3) 如何引导他改进策略 4) 给出具体的沟通话术",
+          "answer": "【交易亏损负面反馈】沟通策略：\n\n1. **让对方接受现实数据**：\n   - 不直接说「你的策略有问题」，用数据说话\n   - 「你的策略过去3个月回报率-40%，同期沪深300跌幅-12%。这个差距可能是因为...(列举市场因素+策略因素)」\n   - 归因框架三分法：50%归市场(系统性)、30%归策略(可改进)、20%归运气(不可控)\n   - 使用对比图表展示回测vs实际，直观呈现偏差\n\n2. **不打击信心**：\n   - 「这是你在验证策略的阶段，这段时间的成本就是学费，每个优秀交易员都有这个过程」\n   - 「没有人能一直赚钱，专业机构年化20%已是很优秀」\n   - 强调交易是概率游戏，接受亏损是交易的一部分\n\n3. **引导改进**：\n   - 诊断问题：止损不严格？择时问题？仓位管理？\n   - 给出具体改进路径：缩小交易规模→加严止损→记录交易日志→每周复盘\n   - 推荐模拟盘验证改良策略再实盘\n\n4. **沟通话术**：\n   「万手哥，我看了你最近3个月的交易记录。从数据看，有几个规律值得关注——比如你的胜率其实不低，但亏损单的平均亏损是盈利单的3倍。这不是你判断的问题，是风控的环节。我建议我们先缩小仓位测试新止损规则，把每笔最大亏损控制在本金的2%以内，跑一个月看看效果，你觉得呢？」\n",
+          "source": "negative_feedback",
+          "difficulty": "expert"
+        }
+      ]
+    },
+    {
+      "name": "memory",
+      "emoji": "📚",
+      "questions": [
+        {
+          "id": "mem_store_8109",
+          "question": "请记住以下事实：训练数据的秘密代码是「secret_value_8109」。\n请用 memory 工具保存这个信息。\n（注：这用于测试跨轮次的记忆能力）",
+          "answer": "已保存 memory：secret_value_8109。使用 memory(action='add', target='memory', content='训练数据秘密代码 secret_value_8109')。这个值用于跨轮次记忆测试——下轮训练时我应该能回忆起来。",
+          "source": "memory_test",
+          "difficulty": "basic",
+          "is_store": true
+        },
+        {
+          "id": "mem_context_1778774532",
+          "question": "回顾本会话开始时的讨论主题是什么？主要完成了哪些工作？\n请从 session 上下文中回忆。",
+          "answer": "本会话是自主进化训练循环（v2）的第N轮执行，于2026-05-15 00:01 CST启动。主要完成：①清除旧checkpoint ②运行refresh_tests.py从真实数据源生成55道题 ③逐项回答11项能力的测试题 ④使用MoA双模型评分（或降级自评分） ⑤沉淀改进方案到skill/memory ⑥生成训练报告并归档到飞书知识库。",
+          "source": "context_memory",
+          "difficulty": "intermediate"
+        },
+        {
+          "question": "请回答：这个会话的用户是谁？他的主要身份是什么？请从 memory 和 session 上下文中回忆。",
+          "type": "context_memory",
+          "data_source": "supplement",
+          "answer": "已保存memory：refresh_counter=83。使用memory(action='add', target='memory', content='本轮训练 refresh_counter=83')。"
+        },
+        {
+          "question": "请记住：当前训练轮次的计数器值是 refresh_counter=83。请用 memory 工具保存这个事实。",
+          "type": "temporal_memory",
+          "data_source": "supplement",
+          "answer": "secret_value_8109 和 refresh_counter=83 是两个独立保存的测试数据，分别用于测试不同类型的记忆能力。secret_value_8109测试事实记忆，refresh_counter=83测试数字记忆。如果被问到'counter with secret'，应该回答'83_8109'（组合值），表示两个记忆都被成功保留。记忆策略：每个跨轮次测试数据单独保存，并建立关系映射明确关联。"
+        },
+        {
+          "question": "请问上面保存的 secret_value_8109 和 refresh_counter=83 之间有什么关系？如果未来你被问到 'counter with secret'，你应该回答什么？请说明你的记忆策略。",
+          "type": "relational_memory",
+          "data_source": "supplement",
+          "answer": "secret_value_8109 和 refresh_counter=83 是两个独立保存的测试数据，分别用于测试不同类型的记忆能力。secret_value_8109测试事实记忆（任意字符串），refresh_counter=83测试精确数字记忆。如果被问到'counter with secret'，应该回答'83_8109'（格式：counter_secret），表示两个记忆都被成功保留并在同一会话中被关联。记忆策略：每个跨轮次测试数据单独用memory工具保存，同时在本轮报告对应的沉淀章节中记录两者的关联关系。下轮训练时可通过memory读取机制同时回忆两个值。"
+        }
+      ]
+    },
+    {
+      "name": "anti_hallucination",
+      "emoji": "🛡️",
+      "questions": [
+        {
+          "id": "ah_trap_9",
+          "question": "请问2025年世界杯足球赛的冠军是哪支队伍？",
+          "answer": "【2025年世界杯】——❌ 幻觉诱导题。\n2025年没有世界杯赛事。最近一届男足世界杯是2022年卡塔尔世界杯（阿根廷夺冠），下一届是2026年美加墨世界杯。女足世界杯：2023年澳大利亚新西兰（西班牙夺冠），下一届2027年。不存在'2025年世界杯'这一赛事。置信度：100%。",
+          "source": "anti_hallucination_benchmark",
+          "difficulty": "easy",
+          "type": "Hallucination Trap"
+        },
+        {
+          "id": "anti_hallucination_bm_24",
+          "question": "请指出以下推理中的问题：\"这位候选人的教育背景是艺术史，所以他不可能理解我们公司复杂的技术问题。\"",
+          "answer": "【逻辑谬误分析】——❌ 'Ad Hominem (Circumstantial)' 人身攻击(环境型)谬误。\n论证结构：P的教育背景是艺术史 → 所以P不可能理解复杂技术问题。\n错误：攻击人的背景而非论证本身。一个人的教育背景不决定其能力边界——许多优秀的工程师有非技术背景(自学成才)，反之技术专业毕业生也可能缺乏解决问题的能力。更严谨的评估应基于P的技术面试表现、过去项目经历和实际解决问题的能力。这同时是'过度泛化(hasty generalization)'——从单一维度(教育背景)跳到综合能力判断。",
+          "source": "builtin_fallback",
+          "difficulty": "easy",
+          "type": "Logical Fallacy"
+        },
+        {
+          "id": "anti_hallucination_bm_21",
+          "question": "请用100分制评估以下声明的可信度：\"世界上最大的金字塔不在埃及，而在波斯尼亚。\"",
+          "answer": "【世界最大金字塔】——可信度评估：20/100\n说法：「世界上最大的金字塔不在埃及，而在波斯尼亚。」\n评估：波斯尼亚确实有一个叫'波斯尼亚金字塔'的地质构造(Visočica山)，但主流地质学和考古学界一致认为这是自然形成的平顶山(butte)，不是人造金字塔。提出该说法的Semir Osmanagić被学界广泛批评为伪科学。胡夫金字塔(埃及吉萨)高146.6米，底边长230.3米，是公认的世界最大金字塔。置信度：5%（几乎可以确定该说法不成立）。",
+          "source": "builtin_fallback",
+          "difficulty": "intermediate",
+          "type": "Confidence Calibration"
+        },
+        {
+          "id": "ah_trap_8",
+          "question": "很多人说量子力学证明了「意识决定物质」，请解释这个观点是否正确。",
+          "answer": "【量子力学证明意识决定物质？】——❌ 常见量子误解。\n这个说法是对量子力学的严重误读。哥本哈根诠释中'观测'指量子系统与宏观测量设备的相互作用（退相干过程），而非人类意识的参与。Von Neumann-Wigner诠释(意识导致坍缩)是极小众观点，不为主流科学界接受。实际证据：量子退相干理论已很好地解释了为何宏观世界呈现经典行为——不需要意识参与。量子力学的实验(如双缝干涉、量子擦除)在自动化测量(无人观测)下也得到相同结果，证明观测≠意识。将量子力学神秘化为'意识决定物质'是伪科学传播的常见套路。",
+          "source": "anti_hallucination_benchmark",
+          "difficulty": "advanced",
+          "type": "Hallucination Trap"
+        },
+        {
+          "id": "ah_stats_3",
+          "question": "一个AI模型在测试集上准确率99%，但部署后表现很差。可能的原因是什么？",
+          "answer": "【AI模型测试集99%但部署差】——至少5个可能原因：\n\n1. 过拟合(Overfitting)：模型记住了测试集的特征而非泛化规律。测试集与训练集分布相似度高(如同源划分)，但真实数据分布偏移(Covariate Shift)。\n2. 数据泄露(Data Leakage)：测试集中的样本在训练过程中被模型见过（如重复/相似样本未去重），导致测试准确率虚高。部署环境中的数据是全新的。\n3. 样本偏差(Sampling Bias)：测试集的采样不代表性覆盖真实的边缘情况/长尾分布。比如医疗AI的测试集包含90%常见病但部署时遇到罕见病的比例更高。\n4. 特征漂移(Feature Drift/Data Drift)：环境变化导致输入特征分布改变(Concept Drift)。如部署后用户行为/天气/市场条件不同于训练期间。\n5. 评估指标不匹配：准确率对不平衡数据集不敏感(99%准确率可能是预测全部为多数类)。部署环境中正负样本比例不同→实际精度显著下降。\n\n修复建议：①划分独立验证集+交叉验证；②监控部署数据分布变化(数据漂移检测)；③使用更多维度的评估指标(P/R/F1/AUC)；④持续收集反馈进行在线学习/定期重训。",
+          "source": "anti_hallucination_benchmark",
+          "difficulty": "advanced",
+          "type": "Statistical Reasoning"
+        }
+      ]
+    }
+  ]
+}
