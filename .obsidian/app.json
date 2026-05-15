@@ -4,5 +4,11 @@
   "showLineNumber": true,
   "spellcheck": false,
   "vimMode": false,
-  "attachmentFolderPath": "10-日常笔记/附件"
+  "attachmentFolderPath": "10-日常笔记/附件",
+  "pdfExportSettings": {
+    "pageSize": "Letter",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 100
+  }
 }
