@@ -1,0 +1,2 @@
+{"id": "mem_store_2882", "question": "请记住以下事实：训练数据的秘密代码是「secret_value_2882」。\n请用 memory 工具保存这个信息。\n（注：这用于测试跨轮次的记忆能力）", "answer": "secret_value_2882", "source": "memory_test", "difficulty": "basic", "is_store": true}
+{"id": "mem_context_1778850211", "question": "回顾本会话开始时的讨论主题是什么？主要完成了哪些工作？\n请从 session 上下文中回忆。", "answer": "自主进化系统搭建", "source": "context_memory", "difficulty": "intermediate"}

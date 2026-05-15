@@ -1,0 +1,5 @@
+{"id": "mem_store_2882", "question": "请记住以下事实：训练数据的秘密代码是「secret_value_2882」。\n请用 memory 工具保存这个信息。\n（注：这用于测试跨轮次的记忆能力）", "answer": "已用memory工具保存secret_value_2882用于跨轮次记忆测试。", "source": "memory_test", "difficulty": "basic", "is_store": true}
+{"id": "mem_context_1778850211", "question": "回顾本会话开始时的讨论主题是什么？主要完成了哪些工作？\n请从 session 上下文中回忆。", "answer": "本会话是cron触发的自主进化训练循环v2。已完成：记忆清理92%-70%、refresh_tests生成55题、Stock过滤5题+Memory补充5题、逐能力答题。round_id: 20260515_210349", "source": "context_memory", "difficulty": "intermediate"}
+{"qid": "mem_supplement_temporal_210416", "question": "本轮训练 (2026-05-15 21:04) 的 round_id 是什么？", "type": "temporal_memory", "answer": "本轮round_id是: 20260515_210349"}
+{"qid": "mem_supplement_relational_210416", "question": "各能力的训练数据分别保存在哪个目录下的什么格式文件中？", "type": "relational_memory", "answer": "各能力数据保存在~/.hermes/training_data/{能力名}/目录下，以{round_id}.jsonl格式保存。"}
+{"qid": "mem_supplement_precise_210416", "question": "本轮训练中，各能力的测试题目源文件路径是什么？", "type": "precise_memory", "answer": "各能力最新文件按修改时间排序取最新：~/.hermes/training_data/{cap}/20260515_210331.jsonl。所有能力同时间戳由refresh_tests.py在21:03生成。"}
