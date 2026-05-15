@@ -25,5 +25,10 @@
   "file-recovery": true,
   "publish": false,
   "sync": false,
-  "canvas": true
+  "canvas": true,
+  "footnotes": false,
+  "properties": true,
+  "bookmarks": true,
+  "bases": true,
+  "webviewer": false
 }
