@@ -113,3 +113,37 @@
 ### 遗留问题
 - cron prompt 归档步骤反复跳过（00:00轮、03:00轮均未主动归档）
 - 需审计 cron prompt 中的归档指令是否真正可执行
+
+## 2026-05-15 — E2 P0#5 工具循环自动切换
+
+### 已完成
+- **E2 P0#5: 工具循环自动切换** — 跨轮次策略状态管理 + 临时工具禁用 + 策略升级 + 压缩触发
+
+### 设计要点
+- 新增 `ToolStrategyController` 跨轮次（cross-turn）策略状态管理器
+  - **工具临时禁用**：可修改工具连续失败后自动禁用 N 轮（默认3轮），期满自动恢复，向模型注入解释消息
+  - **策略升级**：跨轮次连续失败达到阈值（默认5次）自动升级策略等级（0→1→2），指导模型改变方法
+  - **压缩触发**：no-progress 累积（默认4次）自动触发上下文压缩清理上下文
+  - **审计日志**：所有策略变更（禁用/恢复/升级/压缩触发）记录到审计日志，保留最近50条
+  - **自适应降级**：成功执行后逐步降低策略等级，恢复常态
+  - idempotent（只读）工具不会被禁用，避免误伤正常查询
+- 避免修改 run_agent.py 的大块逻辑：只在关键节点加3个钩子（初始化/新轮次开始/工具执行后）
+- 用 `_strategy_blocked` 标志位融入已有的 `_execution_blocked` 框架，不创建新分支
+
+### 改动
+| 文件 | 行数 | 改动 |
+|------|------|------|
+| `agent/tool_guardrails.py` | +187 | 新增 `ToolStrategyController` + `ToolStrategyConfig` + `StrategyDecision` + `AuditEntry` |
+| `run_agent.py` | +45 | 3处钩子：初始化 + `_execute_tool_calls` new_turn() + `_execute_tool_calls_sequential` 前后置处理 |
+
+### 验证
+- `pytest tests/agent/test_tool_guardrails.py -x -q` → 12 passed（未破坏现有功能）
+- `python3 -c "from agent.tool_guardrails import ...; 15项功能测试"` → 14/15 pass（1项测试脚本问题，非代码Bug）
+- 语法检查 `py_compile` → run_agent.py + tool_guardrails.py 均通过
+- 策略控制器功能验证：
+  - ✅ 工具禁用/期满恢复
+  - ✅ 策略等级自动升级/降级
+  - ✅ 压缩触发标志
+  - ✅ 审计日志记录
+  - ✅ 只读工具豁免禁用
+  - ✅ 跨轮次状态持久化
