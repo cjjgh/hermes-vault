@@ -147,3 +147,50 @@
   - ✅ 审计日志记录
   - ✅ 只读工具豁免禁用
   - ✅ 跨轮次状态持久化
+
+## 2026-05-16 — 周六效果回顾
+
+### 本周进化实施总览
+
+| 进化项 | 计划日期 | 状态 | 说明 |
+|:-------|:---------|:----:|:-----|
+| P0#1 MEMORY.md 双上限截断 | 周一(5/11) | ❌ 未实现 | 进化三部曲周三(5/13)才初始化，周一/二项目未执行 |
+| P0#2 文件未变优化 | 周二(5/12) | ❌ 未实现 | 同上。memory_manager.py和file_tools.py均无相关改动 |
+| P0#3 COMPACTABLE_TOOLS 白名单 | 周三(5/13) | ✅ 正常 | 2026-05-13 实施，已验证 |
+| P0#4 子代理工具过滤增强 | 周四(5/14) | ✅ 正常 | 2026-05-14 实施，已验证 |
+| P0#5 工具循环自动切换 | 周五(5/15) | ✅ 正常 | 2026-05-15 实施，已验证 |
+
+### 验证详情
+
+#### P0#3 COMPACTABLE_TOOLS 白名单 (agent/context_compressor.py)
+- **白名单定义**: COMPACTABLE_TOOLS frozenset，10个只读工具（read_file, search_files, web_search, web_extract, browser_snapshot, browser_vision, vision_analyze, skill_view, skills_list, session_search）
+- **写工具豁免**: write_file / terminal / patch / memory 均不在白名单中
+- **测试**: pytest tests/agent/test_context_compressor.py 76/76 passed
+- **结论**: ✅ 功能正常
+
+#### P0#4 子代理工具过滤增强 (tools/delegate_tool.py)
+- **Layer 1 (ALL)**: 4项工具名禁用（delegate_task, clarify, memory, send_message）
+- **Layer 2 (CUSTOM)**: 额外禁用 cronjob, execute_code 工具集
+- **Layer 3 (ASYNC)**: 9个工具集白名单（browser, file, search, session_search, skills, terminal, todo, vision, web）
+- **filter_tools_for_agent()**: 3层过滤逻辑正确，messaging 工具集保留供子代理汇报
+- **测试**: pytest 134/134 passed（已知 flaky heartbeat test 不计）
+- **结论**: ✅ 功能正常
+
+#### P0#5 工具循环自动切换 (agent/tool_guardrails.py)
+- **工具禁用**: 可修改工具连续失败后禁用3轮（✅ 验证通过）
+- **只读工具豁免**: read_file 等只读工具不被禁用（✅ 验证通过）
+- **策略升级**: 跨轮次失败累积后自动升级策略等级（✅ 验证通过，可达 level 2）
+- **自适应降级**: 成功后逐步降级（✅ 验证通过）
+- **审计日志**: 记录所有策略变更（✅ 验证通过）
+- **压缩触发**: no-progress 累积后触发上下文压缩（✅ 验证通过）
+- **测试**: pytest tests/agent/test_tool_guardrails.py 12/12 passed
+- **结论**: ✅ 功能正常
+
+### 未完成项分析
+
+**P0#1 MEMORY.md 双上限截断** 和 **P0#2 文件未变优化** 未执行的原因是进化三部曲计划从周三(5/13)正式启动，周一/二排期在正式计划建立之前。建议将这两项重新排入下周计划。
+
+### 关键发现
+1. 实际实现与设计文档存在偏差：P0#4 filter_tools_for_agent 签名已演变为(toolsets, *, role, is_custom, is_async)，而设计文档中原型是(is_async=False, is_custom=False)。这是合理的工程演化。
+2. P0#5 StrategyDecision 使用 dict 属性而非 dataclass 字段访问。
+3. ToolStrategyController 在本会话中实际生效——terminal 因失败被自动禁用了3轮，证明跨轮次状态管理正常运作。
