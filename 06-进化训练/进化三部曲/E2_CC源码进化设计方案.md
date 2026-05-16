@@ -309,8 +309,20 @@ COMPACTABLE_TOOLS = {
 
 **当前状态**：Hermes `delegate_tool.py` 中 `DELEGATE_BLOCKED_TOOLS` 硬编码黑名单。
 
-**实现方案**：改为 3 层过滤结构：
+**实现方案**：改为 3 层过滤结构（实际实现已演化，以下为最终签名）：
 ```python
+def filter_tools_for_agent(
+    toolsets: List[str],
+    *,
+    role: str = "leaf",
+    is_custom: bool = False,
+    is_async: bool = False,
+) -> List[str]:
+    """
+    3-layer tool filtering for child agents.
+    Layer 3 (async/whitelist) → Layer 2 (custom) → Layer 1 (all/disallowed).
+    """
+
 # ALL agents 都不能用
 ALL_AGENT_DISALLOWED_TOOLS = {'delegate_task', 'clarify', 'memory', 'send_message'}
 # 自定义代理额外限制（Hermes 目前在 Skills 中实现）
