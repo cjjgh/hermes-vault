@@ -226,3 +226,27 @@
 1. 实际实现与设计文档存在偏差：P0#4 filter_tools_for_agent 签名已演变为(toolsets, *, role, is_custom, is_async)，而设计文档中原型是(is_async=False, is_custom=False)。这是合理的工程演化。
 2. P0#5 StrategyDecision 使用 dict 属性而非 dataclass 字段访问。
 3. ToolStrategyController 在本会话中实际生效——terminal 因失败被自动禁用了3轮，证明跨轮次状态管理正常运作。
+
+## 2026-05-17 — 周日进化回顾 v2（每周回顾 Cron）
+
+### 任务执行
+- ✅ 本周进化回顾（当前会话）
+- ✅ 效果验证：P0#3/P0#4/P0#5 测试全部通过
+- ✅ 收敛确认：P0#1/P0#2 实际已实现
+- ✅ P0 进度跟踪完成
+- ✅ 下周计划调整完成
+- ✅ evolution_summary.md 已追加本周摘要
+
+### 关键发现
+1. **15:00/21:00 训练未运行**（05-17）— cron 调度缺失，Gateway 20:28重启可能相关
+2. **scores JSON 静止于 05-15** — 05-16/05-17 训练未产生新的 scores.json
+3. **MoA API 不稳定** — 05-17 09:00 轮次降级为自评分
+4. **USER.md 使用率 74.2%** — 接近 85% 压缩阈值
+5. **rate_controller tool_switches 数组为空** — 驻留时间控制器可能未正确持久化状态
+
+### 下周重点
+- 🔴 修复 cron 训练调度 15:00/21:00 缺口
+- 🔴 修复 MoA API 连接稳定性
+- 🔴 P1-1 Plan Mode 权限模式
+- 🟡 P1-2 特化 Built-in Agent
+- 🟡 P1-3 语义记忆选择
