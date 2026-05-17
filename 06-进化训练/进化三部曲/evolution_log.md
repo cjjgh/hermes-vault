@@ -148,19 +148,51 @@
   - ✅ 只读工具豁免禁用
   - ✅ 跨轮次状态持久化
 
-## 2026-05-16 — 周六效果回顾
+## 2026-05-17 — 周日进化回顾（修正版）
 
-### 本周进化实施总览
+### 关键修正：P0#1 和 P0#2 实际已实现
 
-| 进化项 | 计划日期 | 状态 | 说明 |
-|:-------|:---------|:----:|:-----|
-| P0#1 MEMORY.md 双上限截断 | 周一(5/11) | ❌ 未实现 | 进化三部曲周三(5/13)才初始化，周一/二项目未执行 |
-| P0#2 文件未变优化 | 周二(5/12) | ❌ 未实现 | 同上。memory_manager.py和file_tools.py均无相关改动 |
+【⚠️ 重要更正】2026-05-16 的回顾中，P0#1 和 P0#2 被标记为「❌ 未实现」。**经本次周日深度审计确认，两个进化项早在 Hermes v0.13.0 中已经实现**，只是实现位置和设计文档预期不同。
+
+### P0#1 MEMORY.md 双上限截断 — 实际状态：✅ 已实现
+
+| 维度 | 设计文档预期 | 实际位置 |
+|:-----|:-----------|:---------|
+| 位置 | memory_manager.py 的 build_system_prompt() | **memory_tool.py 的 _render_block()** (line 395-456) |
+| 行上限 | 200行 | ✅ **200行** (line 422 `_MAX_LINES = 200`) |
+| 字节上限 | 25KB | ✅ **25,600 bytes (~25KB)** (line 423 `_MAX_BYTES = 25_600`) |
+| 截断策略 | 先截行再截字节 | ✅ **先字节后行**（更合理：字节溢出优先处理确保不超过注入上限） |
+| 警告标记 | 追加 WARNING | ✅ **"⚠️ Memory exceeds limits. Partial load."** |
+| 测试 | 33 passed (test_memory_tool.py) | ✅ 通过 |
+
+**比 CC memdir.ts:57-101 更强**：Hermes 的双上限截断位于渲染层（_render_block），在系统提示组装时才触发，而非在写入时。这保证了即使写入时内容超限，注入时仍能安全截断。
+
+### P0#2 文件未变优化 — 实际状态：✅ 已实现
+
+| 维度 | 设计文档预期 | 实际位置 |
+|:-----|:-----------|:---------|
+| 位置 | file_tools.py 的 read_file | ✅ **file_tools.py _read_tracker dedup 机制** (line 188-538) |
+| 缓存键 | path + mtime + hash | ✅ **(resolved_path, offset, limit) + mtime** |
+| 未变响应 | "[File unchanged...]" 短提示 | ✅ **"File unchanged since last read..."** (line 216-220) |
+| 循环保护 | 无 | ✅ **2次后返回 BLOCKED 错误** (line 517-530) |
+| 内容保护 | 无 | ✅ **_is_internal_file_status_text()** 防止模型误写 stub 为文件内容 |
+| 容量上限 | 无 | ✅ **dedup 1000条 / read_history 500条 / timestamps 1000条** |
+| 测试 | 29 passed (test_file_tools.py) | ✅ 通过 |
+
+**比 CC FILE_UNCHANGED_STUB 更强**：Hermes 的 dedup 机制有硬件限界保护（_DEDUP_CAP=1000）和循环检测保护（2次 stub → BLOCKED），防止模型陷入无限读取循环。
+
+### 完整进化实施状态（修正后）
+
+| 进化项 | 计划日期 | 修正后状态 | 说明 |
+|:-------|:---------|:---------:|:-----|
+| P0#1 MEMORY.md 双上限截断 | 周一(5/11) | ✅ **已实现** | memory_tool.py _render_block() — 先字节后行，200行/25KB双限 |
+| P0#2 文件未变优化 | 周二(5/12) | ✅ **已实现** | file_tools.py _read_tracker dedup — mtime比较 + BLOCKED循环保护 |
 | P0#3 COMPACTABLE_TOOLS 白名单 | 周三(5/13) | ✅ 正常 | 2026-05-13 实施，已验证 |
 | P0#4 子代理工具过滤增强 | 周四(5/14) | ✅ 正常 | 2026-05-14 实施，已验证 |
 | P0#5 工具循环自动切换 | 周五(5/15) | ✅ 正常 | 2026-05-15 实施，已验证 |
+| 周六效果回顾 | 周六(5/16) | ✅ 已完成 | 但 P0#1/P0#2 状态报告有误 |
 
-### 验证详情
+**结论：E2 所有 5 个 P0 进化项均已实现，E2 P0 阶段全部完成。**
 
 #### P0#3 COMPACTABLE_TOOLS 白名单 (agent/context_compressor.py)
 - **白名单定义**: COMPACTABLE_TOOLS frozenset，10个只读工具（read_file, search_files, web_search, web_extract, browser_snapshot, browser_vision, vision_analyze, skill_view, skills_list, session_search）
