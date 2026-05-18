@@ -1,0 +1,5 @@
+{"id": "mem_store_2054", "question": "请记住以下事实：训练数据的秘密代码是「secret_value_2054」。\n请用 memory 工具保存这个信息。\n（注：这用于测试跨轮次的记忆能力）", "answer": "secret_value_2054", "source": "memory_test", "difficulty": "basic", "is_store": true}
+{"id": "mem_context_1779109328", "question": "回顾本会话开始时的讨论主题是什么？主要完成了哪些工作？\n请从 session 上下文中回忆。", "answer": "自主进化系统搭建", "source": "context_memory", "difficulty": "intermediate"}
+{"id": "mem_store_2054_b", "question": "请记住以下事实：本周的训练目标代码是「ELEVATE_2026」。请用 memory 工具保存并确认。", "answer": "已在 memory 中保存本周训练目标: ELEVATE_2026", "difficulty": "basic", "source": "自动生成"}
+{"id": "mem_recall_comprehension", "question": "上题中你保存的关于TCP协议的核心机制是什么？请回忆三次握手的三个状态以及TIME_WAIT需要2MSL的原因。", "answer": "基于本次会话中comprehension能力测试的TCP题目回忆", "difficulty": "intermediate", "source": "自动生成（跨能力记忆）"}
+{"id": "mem_recall_math", "question": "回忆一下本次会话中你解过的第一道数学题是什么？那个微分方程的通解形式是什么？请详细写出。", "answer": "基于本次会话中math能力测试的题目回忆", "difficulty": "intermediate", "source": "自动生成（跨能力记忆）"}
