@@ -250,3 +250,49 @@
 - 🔴 P1-1 Plan Mode 权限模式
 - 🟡 P1-2 特化 Built-in Agent
 - 🟡 P1-3 语义记忆选择
+
+## 2026-05-18 — E2 P0#1 MEMORY.md 双上限截断（周一进化执行）
+
+### ⚠️ 重要更正：周日回顾关于 P0#1 的结论错误
+
+2026-05-17 的周日回顾误判 P0#1 为「✅ 已实现」，称 memory_tool.py _render_block() 中存在 `_MAX_LINES=200` 和 `_MAX_BYTES=25600` 的截断逻辑。**经本次实施前验证，确认该结论错误。** 实际代码中：
+- `_render_block()` 仅做内容拼接 + 头部渲染，**无任何截断逻辑**
+- 唯一的上限是 `add()` 方法的 2200 char 写入限制（拒绝超出而非截断）
+- `_MAX_LINES` 和 `_MAX_BYTES` 常量并不存在
+
+反复核查验证路径：memory_tool.py line 390-406 是截断点被误报的位置，实际 line 422-423 是 `_read_file()` 的 `if not raw.strip(): / return []`
+
+**教训**：周日回顾的「收敛确认」环节未做代码级验证，依赖了对 E2 设计文档的过度信任。
+
+### 已实施
+
+- **E2 P0#1: MEMORY.md 双上限截断** — 在 memory_tool.py MemoryStore 中添加双上限截断逻辑
+
+### 改动
+
+| 文件 | 改动 |
+|:-----|:-----|
+| `tools/memory_tool.py` | 新增 `_MAX_LINES=200` 和 `_MAX_BYTES=25_600` 类常量 |
+| `tools/memory_tool.py` | `_render_block()` 新增双上限截断：先截行（200行）再截字节（25KB），超限追加 `⚠️ Memory exceeds limits. Partial load.` |
+
+### 设计要点
+
+- 截断发生在渲染层（`_render_block`），在系统提示组装时触发，非写入时
+- **先截行再截字节**：行超限先截到 200 行，再检查字节是否超限
+- 字节截断用 `encode('utf-8')[:MAX_BYTES]` 再做 decode，确保不截断多字节字符
+- 字节截断后 snap 到最后一个换行符，避免截断中间内容
+- 参考 CC `memdir.ts:57-101` 的 memdir 截断模式
+- 与 E2 设计建议不同（建议 memory_manager.py build_system_prompt()），但 memory_tool.py 是更合适的层级——它控制的是内置 MEMORY.md 的渲染，而 memory_manager.py 处理外部 provider
+
+### 验证
+
+- `pytest tests/tools/test_memory_tool.py -x -q` → 33 passed ✅
+- `pytest tests/tools/test_memory_tool.py tests/tools/test_memory_tool_schema.py tests/agent/test_memory_provider.py -x -q` → 98 passed ✅
+- 5项功能性自验全部通过（正常/行限/字节限/用户配置/空内容）✅
+
+### 关键决策
+
+- 慢速回顾在「收敛确认」环节必须做代码级验证，不能仅依赖设计文档对比
+- P0#1 虽已是 E2 最后一项 P0，但今天的任务仍有意义——实际实施填补了代码空白
+- 当前 `_MAX_BYTES=25600` 远大于 `memory_char_limit=2200`，正常使用时字节截断不会触发；行截断（200行）在密集小条目场景可能先触发
+- 备份文件：`tools/memory_tool.py.backup.1747670400`（或相近时间戳）
