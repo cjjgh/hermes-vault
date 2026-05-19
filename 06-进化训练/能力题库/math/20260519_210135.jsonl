@@ -1,0 +1,5 @@
+{"id": "hard_prob_2", "source": "high_difficulty_math", "difficulty": "expert", "type": "Probability", "question": "在长度为1的线段上随机取两点，求距离 > 1/2 的概率。", "answer": "单位正方形中满足|x-y|>1/2的面积为1/4，概率=1/4。"}
+{"id": "hard_combo_1", "source": "high_difficulty_math", "difficulty": "expert", "type": "Combinatorics", "question": "从1到100中随机选3个不同数，求构成等差数列的概率。", "answer": "总C(100,3)=161700。等差数列总数=2∑_{d=1}^{49}(100-2d)=4900。概率=4900/161700=49/1617≈3.03%"}
+{"id": "hard_combo_3", "source": "high_difficulty_math", "difficulty": "expert", "type": "Combinatorics", "question": "10个人围圆桌就座，如果A和B不能相邻，有多少种坐法？", "answer": "总圆排列(10-1)!=9!。A和B相邻视作一人：(9-1)!×2=8!×2。答案=9!-8!×2=8!×(9-2)=7×8! = 282240。"}
+{"id": "hard_geo_1", "source": "high_difficulty_math", "difficulty": "expert", "type": "Geometry", "question": "等边三角形内一点P到三边距离分别为2,3,4，求边长。", "answer": "距离和=高，2+3+4=9=√3/2·a，a=18/√3=6√3。"}
+{"id": "hard_ode_2", "source": "high_difficulty_math", "difficulty": "expert", "type": "Differential Equations", "question": "求 (x²+1)y'+2xy=4x² 的通解。", "answer": "积分因子 μ=x²+1。通解 y=(4x³/3+C)/(x²+1)。"}
