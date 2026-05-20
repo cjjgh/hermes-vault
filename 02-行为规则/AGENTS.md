@@ -31,5 +31,4 @@
 ## 场景技能索引
 
 以下技能按场景自动加载，不在本文件中展开：
-- **飞书群聊/舰队协作** → `fleet-orchestration` skill（派活流程、XML @格式、成员通讯录）
 - **飞书查阅 Vault/知识库** → `feishu-vault-knowledge` skill（浏览、搜索、输出格式）
