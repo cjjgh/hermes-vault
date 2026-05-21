@@ -38,6 +38,25 @@
 | 报告质量、四条输入管道、晨报/日报 | `AI-ML/report_pipelines.md` |
 | 身份认证、Open ID 白名单 | `AI-ML/identity_auth_whitelist.md` |
 | 万能解题 10 步法 | `AI-ML/problem_solving_10steps.md` |
+| 团队中枢—飞书多维表格管理系统 | `AI-ML/team_hub_bitable.md` |
+| MiniMax 全模态创作（图片/视频/语音/音乐） | `skills/minimax-creative/SKILL.md` |
+| 深度方略 Stratapro — A股选股分析系统 | `stratapro/SKILL.md` |
+| 奇点造物 Genesisix — AI Agent 安全框架 | `genesisix/SKILL.md` |
+
+## 团队中枢操作
+
+团队中枢多维表格已创建（token: `ENDab60Xaa1LcesjIk8cXaW2nKg`）
+
+### 7 张表
+- **成员总览**：人员状态、元宝、声誉
+- **任务看板**：任务管理、优先级、积分
+- **事件流水**：行为记录、元宝变动
+- **会议记录**：决策留痕
+- **经验沉淀**：知识管理
+- **技术债务**：问题追踪
+- **Cron调度中心**：自动化调度
+
+操作方式：`lark-cli base +record-add --base-token ENDab60Xaa1LcesjIk8cXaW2nKg --table-id <table_id> --fields '...' --as user`
 | 论文资源目录（炼金术参考） | `AI-ML/research_papers_catalog.md` |
 
 ## 能力提升（自主进化训练反向注入）
