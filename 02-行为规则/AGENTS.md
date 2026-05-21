@@ -43,6 +43,14 @@
 | 深度方略 Stratapro — A股选股分析系统 | `stratapro/SKILL.md` |
 | 奇点造物 Genesisix — AI Agent 安全框架 | `genesisix/SKILL.md` |
 
+## 输出前六问自检（抗幻觉工具）
+
+重要输出前可调用 `output_selfcheck` 工具进行六问自检。
+
+## 工具输出截断
+
+超长工具输出使用 `~/.hermes/scripts_lib/tool_output_truncator.py` 截断，避免撑爆上下文。
+
 ## 团队中枢操作
 
 团队中枢多维表格已创建（token: `ENDab60Xaa1LcesjIk8cXaW2nKg`）
