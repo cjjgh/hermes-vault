@@ -1,0 +1,5 @@
+{"id": "hard_combo_2", "source": "high_difficulty_math", "difficulty": "expert", "type": "Combinatorics", "question": "证明：正整数n拆分为互不相同正整数之和的方法数，等于拆分为奇数之和的方法数。（用生成函数）", "answer": "互不相同分割GF:∏(1+q^k)。奇数分割GF:∏1/(1-q^{2k-1})。由(1+q^k)=(1-q^{2k})/(1-q^k)得一式=∏1/(1-q^{2k-1})。"}
+{"id": "hard_combo_3", "source": "high_difficulty_math", "difficulty": "expert", "type": "Combinatorics", "question": "10个人围圆桌就座，如果A和B不能相邻，有多少种坐法？", "answer": "总圆排列(10-1)!=9!。A和B相邻视作一人：(9-1)!×2=8!×2。答案=9!-8!×2=8!×(9-2)=7×8! = 282240。"}
+{"id": "hard_calc_2", "source": "high_difficulty_math", "difficulty": "expert", "type": "Calculus", "question": "求函数 f(x)=x⁴-4x³+6x²-4x+1 的极值点和拐点。f(x)=(x-1)⁴ 是否有帮助？", "answer": "f(x)=(x-1)⁴, x=1是最小值点（非拐点，f''(1)=0但f'在1两侧不变号）。"}
+{"id": "hard_ineq_1", "source": "high_difficulty_math", "difficulty": "expert", "type": "Inequality", "question": "已知 a,b,c>0 且 a+b+c=1，证明：a/(b+c)+b/(c+a)+c/(a+b) ≥ 3/2。", "answer": "由柯西：∑a/(b+c)·∑a(b+c) ≥ 1，∑a(b+c)=2∑ab ≤ 2/3。故原式 ≥ 3/2。"}
+{"id": "hard_ode_2", "source": "high_difficulty_math", "difficulty": "expert", "type": "Differential Equations", "question": "求 (x²+1)y'+2xy=4x² 的通解。", "answer": "积分因子 μ=x²+1。通解 y=(4x³/3+C)/(x²+1)。"}
