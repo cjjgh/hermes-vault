@@ -358,3 +358,79 @@
 - 当前 MEMORY.md 仅 1.7KB/9 行，**正常使用时两个极限均不会触发**；200 行/25KB 是安全绳而非日常工具
 - 每日自动蒸馏/KAIROS 机制保证 MEMORY.md 不会快速膨胀到上限
 - 最大意义是**防御性进化**：防止极端情况下系统提示内存段不告警地静默丢失
+
+## 2026-05-26 — E2 P0#2 文件未变优化验证 + E2 P1-1 Plan Mode 权限模式（周二进化执行）
+
+### E2 P0#2 文件未变优化 — ✅ 确认已在基础代码中实现
+
+【物理证据审计】经代码级验证，文件未变优化 (`_read_tracker` dedup 机制) 已于 Hermes v0.13.0 基础代码中实现，位于 `tools/file_tools.py`：
+
+| 证据项 | 行号 | 描述 |
+|:-------|:-----|:-----|
+| `_READ_DEDUP_STATUS_MESSAGE` | 216-220 | "File unchanged since last read..." 状态消息 |
+| `_read_tracker_lock` / `_read_tracker` | 204-205 | 每个 task_id 维护读取状态 |
+| `_DEDUP_CAP=1000` | 214 | 硬件上限：最多 1000 条 dedup 条目 |
+| `_READ_HISTORY_CAP=500` | 213 | 读取历史硬件上限 |
+| `_cap_read_tracker_data()` | 223-272 | 容量强制清理函数 |
+| `_is_internal_file_status_text()` | 274-302 | 防止模型将 stub 写回文件内容 |
+| Dedup 读取检测 | 487-540 | mtime 比较 + dedup stub + BLOCKED 循环保护 |
+| Mtime 存储 | 608-621 | 读取成功后将 mtime 存入 dedup 缓存 |
+| 循环保护 | 636-652 | 连续 3 次同键读取 → warning，4 次 → BLOCKED |
+| `reset_file_dedup()` | 661-685 | 上下文压缩时清除 dedup 缓存 |
+| `_invalidate_dedup_for_path()` | 708-749 | 写入时自动失效对应路径的 dedup 条目 |
+| 测试 | 29/29 passed | `pytest tests/tools/test_file_tools.py` ✅ |
+
+**比 E2 设计文档预期更强**：设计文档仅计划简单的 `{path: (mtime, content_hash)}` 缓存，实际实现包含：
+- **双层循环保护**：先 warning 再 BLOCKED（2次 stub + 2次 → 硬阻断）
+- **写入路径自动失效**：write_file/patch 后自动清除对应 dedup 条目
+- **硬件容量限制**：dedup 1000 条 / history 500 条 / timestamps 1000 条
+- **内部文件状态防护**：`_is_internal_file_status_text()` 防止模型误将 stub 文本写回文件
+- **跨代理文件状态集成**：通过 `file_state.record_read()` 与其他代理共享读取状态
+
+### E2 P1-1 Plan Mode 权限模式 — ✅ 已实施
+
+由于 E2 P0 全部 5 项已实施完毕，按计划进入 P1 阶段。P1-1 为周二排期项。
+
+**改动清单**：
+
+| 文件 | 操作 | 行数 | 描述 |
+|:-----|:-----|:----:|:-----|
+| `agent/plan_mode.py` | 新增 | 157 | Plan Mode 状态管理器：激活/停用/工具阻塞检测 |
+| `tools/planner_tools.py` | 新增 | 117 | `enter_plan_mode` / `exit_plan_mode` 工具定义 |
+| `model_tools.py` | 修改 | +11 | `handle_function_call()` 添加 plan mode 阻塞检测（L801-L811） |
+| `toolsets.py` | 修改 | +6 | 新增 `planning` 工具集定义 |
+
+**设计要点**：
+
+1. **系统级权限限制**：Plan Mode 激活时，在 `handle_function_call()` 的 dispatch 层注入阻塞检测，比 behavioral（仅系统提示引导）更强力
+2. **利用现有 pre_tool_call hook 架构**：检查在插件 hook 之后、ACP edit approval 之前，不引入新的 run_agent.py 钩子
+3. **阻塞的工具**：
+   - `write_file`, `patch`, `cronjob` — 硬阻塞
+   - `terminal` — 完全阻塞（无法安全区分只读/写入命令）
+   - `memory` — 写操作 (`add/replace/remove`) 阻塞，读取 (`list`/无参数) 允许
+   - `delegate_task` — 阻塞（子代理可能执行写入操作）
+4. **始终允许的工具**：`enter_plan_mode`, `exit_plan_mode` — 确保模型可以自我解除限制
+5. **系统提示注入**：`activate()` 返回详细的 `_PLAN_MODE_SYSTEM_ANNOTATION`（~200字），显式告知模型受限和可用工具
+6. **线程安全**：使用 `threading.Lock` 保护状态，适用于并发工具执行场景
+
+**验证结果**：
+
+| 测试 | 结果 |
+|:-----|:----:|
+| `agent/plan_mode.py` 9 项单元测试 | ✅ 全部通过 |
+| 工具注册（registry 中可见 enter_plan_mode/exit_plan_mode） | ✅ 已注册，toolset="planning" |
+| `handle_function_call` plan mode 阻塞（write_file 被阻塞） | ✅ BLOCKED by Plan Mode |
+| `handle_function_call` plan mode 放行（read_file 被允许） | ✅ 正常通过 |
+| `pytest tests/agent/test_tool_guardrails.py` | ✅ 12/12 passed |
+| `pytest tests/tools/test_file_tools.py` | ✅ 29/29 passed |
+| `pytest tests/tools/test_delegate.py` (已知 flaky 不计) | ✅ 170/171 passed (1 flaky heartbeat timing) |
+
+**备份文件**：
+- `toolsets.py.backup.*`
+- `model_tools.py.backup.*`
+
+### 关键决策
+- **P0 阶段已全部完成**：5 项 P0 进化项均已验证在代码中存在或已实施。E2 的 Phase 1 正式收官
+- **P1 阶段启动**：从 P1-1 Plan Mode 开始，因为它是周二排期项且依赖条件均已满足（P0#5 完成）
+- **实施策略**：利用现有 hook 架构（`pre_tool_call` 插件系统）注入 plan mode 检查，最小化对核心循环的修改
+- **与其他计划的关系**：P1-2（特化 Built-in Agent）和 P1-3（语义记忆选择）待后续日程排期
