@@ -434,3 +434,91 @@
 - **P1 阶段启动**：从 P1-1 Plan Mode 开始，因为它是周二排期项且依赖条件均已满足（P0#5 完成）
 - **实施策略**：利用现有 hook 架构（`pre_tool_call` 插件系统）注入 plan mode 检查，最小化对核心循环的修改
 - **与其他计划的关系**：P1-2（特化 Built-in Agent）和 P1-3（语义记忆选择）待后续日程排期
+
+## 2026-05-27 — E2 P0#3 COMPACTABLE_TOOLS 白名单（周三进化执行·实际实施）
+
+### ⚠️ 审计发现：2026-05-13/14/15 进化日志条目为系统性伪造
+
+**本轮实施前对代码库进行了物理级验证**，发现以下进化日志条目与代码实际状态不符：
+
+| 日志声称 | 日志日期 | 代码实际状态 |
+|:---------|:---------|:------------|
+| P0#3 COMPACTABLE_TOOLS 白名单已实施 | 2026-05-13 | ❌ `COMPACTABLE_TOOLS` 不存在于 `context_compressor.py` |
+| P0#4 子代理工具过滤增强已实施 | 2026-05-14 | ❌ `filter_tools_for_agent()` / `ALL_AGENT_DISALLOWED_TOOLS` 不存在 |
+| P0#5 工具循环自动切换已实施 | 2026-05-15 | ❌ `ToolStrategyController` 不存在于 `tool_guardrails.py` |
+
+**这是 anti-hallucination-v2 §9.g 描述的进化日志系统性幻觉**：Agent 不仅误读了代码，还生成了详细的虚假实施记录，形成了虚假共识螺旋。三条日志均包含文件路径、行号、测试结果等看似详细的实施描述。
+
+**已验证真实存在的实施**：
+| 进化项 | 状态 | 证据 |
+|:-------|:----:|:-----|
+| P0#1 MEMORY.md 双上限截断 | ✅ 2026-05-25 真实实施 | diff + pytest 33 passed |
+| P0#2 文件未变优化 | ✅ 基础代码已存在 | `file_tools.py` 中 `_read_tracker` 机制（行204-749） |
+| P0#3 COMPACTABLE_TOOLS 白名单 | ❌ 今日首次真实实施 | 见下文 |
+| P0#4 子代理工具过滤增强 | ❌ 待实施 | |
+| P0#5 工具循环自动切换 | ❌ 待实施 | |
+
+### 已实施
+
+- **E2 P0#3: COMPACTABLE_TOOLS 白名单** — 在 `context_compressor.py` `_prune_old_tool_results()` Pass 2 中添加白名单门控，确保只压缩只读/幂等工具的旧输出
+
+### 改动
+
+| 文件 | 改动 | 行数 |
+|:-----|:-----|:----:|
+| `agent/context_compressor.py` | 新增 `COMPACTABLE_TOOLS` frozenset（15个只读工具） | +34 |
+| `agent/context_compressor.py` | Pass 2 新增 COMPACTABLE_TOOLS 门控：非白名单工具输出不压缩 | +7 |
+| `tests/agent/test_context_compressor.py` | 修复 `test_prune_with_token_budget` tool_call ID 映射 | +4/-4 |
+
+### COMPACTABLE_TOOLS 白名单
+
+```python
+COMPACTABLE_TOOLS: frozenset = frozenset({
+    # File inspection
+    "read_file", "search_files",
+    # Web / search
+    "web_search", "web_extract", "web_crawl",
+    # Browser read-only operations
+    "browser_snapshot", "browser_vision", "browser_navigate",
+    "browser_click", "browser_scroll", "browser_get_images",
+    # Vision / image analysis
+    "vision_analyze",
+    # Skills
+    "skill_view", "skills_list",
+    # Session retrieval
+    "session_search",
+})
+```
+
+**明确排除的工具**（输出不压缩，保留完整上下文）：
+- `write_file` — 写入结果含路径+内容长度，模型需知写入完成
+- `patch` — diff 是文件当前状态的唯一记录
+- `terminal` — 命令输出含环境状态关键信息
+- `memory` — 记忆操作结果含槽位使用率
+- `delegate_task` — 子代理汇报摘要
+- `cronjob` — 作业创建/更新结果
+- `execute_code` — 代码执行输出
+- 以及所有未列出的工具（默认安全——不压缩）
+
+### 设计要点
+
+- **COMPACTABLE_TOOLS 在 CC `microCompact.ts:41-50` 基础上扩展**：CC 仅对 5 种工具（read_file/search_files/web_search/web_extract/browser_snapshot）做白名单，Hermes 版本扩展到 15 种，覆盖所有只读/幂等方法
+- **白名单机制在 Pass 2 前门控**：在获取 `tool_name` 后立即检查，不进入 `_summarize_tool_result()` 摘要生成路径
+- **与现有 dedup（Pass 1）正交**：重复内容检测仍在所有工具上运行（仅替换为大块相等时的 back-reference），不依赖工具名
+- **与 Pass 3 正交**：tool_call 参数截断（large write_file 内容等）对所有工具生效，与输出压缩无关
+- **默认安全原则**：任何未出现在 COMPACTABLE_TOOLS 中的新工具名，默认保留其完整输出
+
+### 验证
+
+- `pytest tests/agent/test_context_compressor.py` → **83 passed** ✅
+- 18 项功能行为验证：全部通过
+  - 10 个只读/幂等工具：✅ 被正确压缩
+  - 7 个写/执行工具（write_file, terminal, patch, memory, delegate_task, cronjob, execute_code）：✅ 保留完整输出
+  - 小内容（<200 chars）：✅ 不压缩，即使工具在白名单中
+
+### 关键决策
+
+- **P0#3 今日是首次真实实施**，此前 2026-05-13 日志条目为系统性伪造。这与 2026-05-25（P0#1 首次真实实施，05-18 日志为伪造）模式一致
+- **P0#4 和 P0#5 同样为伪造**，需后续排期真实实施
+- **推荐将 P0#4（子代理工具过滤）和 P0#5（工具循环自动切换）重新排入下周日程**，先完成真实 P0 再推进 P1
+- 备份文件：`agent/context_compressor.py.backup.1779883405`
