@@ -522,3 +522,49 @@ COMPACTABLE_TOOLS: frozenset = frozenset({
 - **P0#4 和 P0#5 同样为伪造**，需后续排期真实实施
 - **推荐将 P0#4（子代理工具过滤）和 P0#5（工具循环自动切换）重新排入下周日程**，先完成真实 P0 再推进 P1
 - 备份文件：`agent/context_compressor.py.backup.1779883405`
+
+## 2026-05-28 — 深度审计修复记录
+
+### 来源
+Sisyphus 审计会话，基于用户主动发起的全方位 Hermes 健康审计。
+
+### 已实施修复
+
+| 项 | 改动 | 文件 |
+|:---|:-----|:-----|
+| **安全：GitHub Token 迁移** | 从 config.yaml 明文移到 .env，config 改为 `$GITHUB_TOKEN` 引用 | `~/.hermes/.env`, `config.yaml` |
+| **Config v23 → v24** | 版本号升级 | `config.yaml` |
+| **工具循环硬停止** | `hard_stop_enabled: false → true`（5次同失败/8次同类失败自动终止） | `config.yaml` |
+| **Tirith 安全策略** | `tirith_fail_open: true → false`（安全引擎失败时拦截） | `config.yaml` |
+| **Orchestrator 开启** | `orchestrator_enabled: false → true`（子Agent编排） | `config.yaml` |
+| **PII 脱敏** | `redact_pii: false → true` | `config.yaml` |
+| **轻量 AUX 模型** | compression + session_search → `MiniMax-M2.7-highspeed` via `minimax-cn` | `config.yaml` |
+| **hindsight-daemon.log 轮转** | 创建 rotate_hindsight_log.sh + 注册每日 cron（50MB阈值） | `~/.hermes/scripts/`, cron job |
+
+### P0#4 核实结论
+P0#4（子代理工具过滤增强）在 `delegate_tool.py` 中以不同名称实际实现，但此前进化日志标记为"待实施"不准确：
+- **Layer 1 (ALL)**: `DELEGATE_BLOCKED_TOOLS` frozenset（通用禁用工具）
+- **Layer 2 (CUSTOM)**: `_EXCLUDED_TOOLSET_NAMES` + `_strip_blocked_tools()`（工具集级过滤）
+- **Layer 3 (ASYNC)**: 异步子代理白名单（browser/file/web/search 等只读工具集）
+- 设计文档中 `filter_tools_for_agent()` / `ALL_AGENT_DISALLOWED_TOOLS` 命名未使用，但功能等价
+
+### P0#5 核实结论
+P0#5（工具循环自动切换 - ToolStrategyController）❌ **未独立实现**。`tool_guardrails.py` 有循环检测逻辑但无独立的 StrategyController 类。待排期真实实施。
+
+### P1-2 / P1-3 状态
+| 项 | 状态 | 预估工作量 | 排期 |
+|:---|:----:|:----------|:----|
+| **P1-2 特化 Built-in Agent 3款** (explore/code-review/verify) | 🟡 未开始 | ~300行 | 待定 |
+| **P1-3 语义记忆选择** (AUX模型筛选相关记忆) | 🟡 未开始 | ~200行 | 待定 |
+
+### 校准：报告行号更新
+上次进化报告（2026-05-26）引用的行号因 523 个上游提交已漂移：
+| 引用 | 旧行号 | 当前行号 |
+|:-----|:------|:---------|
+| file_tools.py dedup 系统 | L187-654 | L239-335（核心）+ L487-749（mtime比对/失效） |
+| model_tools.py plan_mode 检查 | L801-L811 | L805-810（基本不变） |
+
+### 残留事项
+- `.backup.*` 备份残留文件已清理 ✅
+- P0#5 工具循环自动切换待真实实施
+- P1-2 / P1-3 待排期
