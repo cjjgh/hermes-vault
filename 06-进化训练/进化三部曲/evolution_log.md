@@ -568,3 +568,50 @@ P0#5（工具循环自动切换 - ToolStrategyController）❌ **未独立实现
 - `.backup.*` 备份残留文件已清理 ✅
 - P0#5 工具循环自动切换待真实实施
 - P1-2 / P1-3 待排期
+
+## 2026-05-28 — E2 P0#4 子代理工具过滤增强 — 3层过滤正式实施（周四进化执行）
+
+### 背景
+此前 evolution_log 中 P0#4 的状态是「已经在 delegate_tool.py 中以不同名称实际实现」——但经过代码级验证，原有的 `DELEGATE_BLOCKED_TOOLS` + `_strip_blocked_tools()` 硬编码黑名单只有**单层**过滤，缺少 E2 设计文档要求的 3 层 ALL/CUSTOM/ASYNC 结构。
+
+### 已实施
+
+- **E2 P0#4: 子代理工具过滤增强** — 新增 `filter_tools_for_agent()` 函数 + 3 层 frozenset，替代原有的单层硬编码黑名单
+
+### 改动
+
+| 文件 | 改动 |
+|:-----|:-----|
+| `tools/delegate_tool.py` | 新增 `ALL_AGENT_DISALLOWED_TOOLS` frozenset（Layer 1: 4 工具名） |
+| | 新增 `CUSTOM_AGENT_DISALLOWED_TOOLS` frozenset（Layer 2: 2 工具名） |
+| | 新增 `ASYNC_AGENT_ALLOWED_TOOLSETS` frozenset（Layer 3: 9 工具集名） |
+| | 新增 `_ALL_AGENT_BLOCKED_TS` / `_CUSTOM_AGENT_BLOCKED_TS`（模块级工装集名解析） |
+| | 新增 `filter_tools_for_agent(toolsets, *, is_custom=False, is_async=False)` 函数 |
+| | `_strip_blocked_tools()` 改为 legacy wrapper 调用 `filter_tools_for_agent()` |
+| | `DELEGATE_BLOCKED_TOOLS` 改为 `ALL_AGENT_DISALLOWED_TOOLS` 的 legacy 别名 |
+| `tests/tools/test_delegate.py` | `TestBlockedTools` 全面重构：7 项测试覆盖 3 层 + 边缘用例 |
+| | `TestStripBlockedTools.test_removes_blocked_toolsets` 更新预期（code_execution 现允许叶代理） |
+
+### 设计要点
+
+| 层 | 范围 | 内容 | 影响工具集 |
+|:---|:-----|:-----|:----------|
+| **Layer 1 (ALL)** | 所有子代理 | delegate_task, clarify, memory, send_message | delegation, clarify, memory, messaging |
+| **Layer 2 (CUSTOM)** | 自定义/Skill 代理额外 | execute_code, cronjob | code_execution, cronjob |
+| **Layer 3 (ASYNC)** | 后台代理白名单 | 9 个工具集 | browser/file/search/session_search/skills/terminal/todo/vision/web |
+
+### 行为变化
+- **默认叶代理**：现在可以访问 `execute_code`（原在 ALL 层，现移至 CUSTOM 层）
+- **自定义代理**：额外禁用 `execute_code` + `cronjob`
+- **异步代理**：仅白名单 9 个工具集可用（Layer 1/2 不叠加）
+- `_strip_blocked_tools()` 行为不变（默认叶代理参数）
+
+### 验证
+
+- `pytest tests/tools/test_delegate.py -k "TestStripBlockedTools or TestBlockedTools"` → **12 passed** ✅
+- `pytest tests/tools/test_delegate.py tests/tools/test_delegate_toolset_scope.py -k "not TestDelegateHeartbeat"` → **142 passed** ✅
+- Python import + 功能性自验（叶/CUSTOM/ASYNC 三层 + 遗留别名）→ **全部通过** ✅
+
+### 参考
+- CC `agentToolUtils.ts:70-116` filterToolsForAgent() 3 层过滤模式
+- E2 设计文档 §2.3 子代理系统关键差距 #2
