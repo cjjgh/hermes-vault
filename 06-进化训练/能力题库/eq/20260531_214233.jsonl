@@ -1,0 +1,5 @@
+{"id": "eq_hard_4_1780232703", "correctness": 70, "completeness": 90, "logic": 85, "clarity": 95, "total": 85, "reason": "", "elapsed_sec": 23.9}
+{"id": "eq_hard_5_1780232703", "correctness": 85, "completeness": 80, "logic": 90, "clarity": 88, "total": 75, "reason": "", "elapsed_sec": 25.9}
+{"id": "eq_hard_3_1780232703", "correctness": 88, "completeness": 85, "logic": 85, "clarity": 85, "total": 86, "reason": "", "elapsed_sec": 13.9, "_parser_anomaly": true, "_fallback_total": 86}
+{"id": "eq_hard_2_1780232703", "correctness": 100, "completeness": 100, "logic": 100, "clarity": 100, "total": 100, "reason": "该回答完美覆盖所有用户要求：承认问题态度诚恳且不回避；具体措施不少于三条且切实可行；时间表明确（30/60/90天），量化目标清晰（五个偏见维度独立审计）；外部监督邀请具体机构并设公开渠道。整体结构逻辑连贯，语言正式易懂，信息准确无误，符合危机公关伦理声明的最高标准。", "elapsed_sec": 22.8}
+{"id": "eq_hard_1_1780232703", "correctness": 95, "completeness": 80, "logic": 90, "clarity": 95, "total": 90, "reason": "回答准确共情了各部门立场，提出了两个可行的折中方案，并分析了风险（收益略有隐含而非明确列出），推荐有理有据，逻辑清晰，表达简洁易读，基本满足题目所有要求。完整性因收益未明确阐述而略有扣分。", "elapsed_sec": 26.6}
