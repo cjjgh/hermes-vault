@@ -78,34 +78,69 @@
 <!-- [控制论] P0-1 反馈闭环：每次工具调用后显式评估预期输出vs实际输出的差距，用差距修正下一步，连续3步以上无反馈评估自动触发压缩审计 -->
 <!-- [控制论] P0-4 降级纪律：连续3次工具调用失败或无进展，自动降级策略（换模型、缩范围、或报告用户），禁止无限循环重试同一模式 -->
 
-## 记忆实时同步规则（朋友方案 §3.3.3）
+## 记忆实时同步规则（朋友方案 §3.3.3，管家 v2.0 扩展）
 
-朋友方案确定的记忆架构：
+朋友方案确定的记忆架构 + 管家 v2.0 三层归档引擎：
 
 ```
 用户指令 → Agent执行 → 关键信息
 ├── 即时写入外部记忆后端（会话内可见）
 ├── 异步写入MEMORY.md（下次会话生效）
-└── 触发记忆蒸馏（定期压缩）
+└── 触发记忆蒸馏（三层降级：热→温→冷）
 ```
 
-### 核心规则
-- **任何需要跨会话保留的信息**，在写入文件后，同步调用 memory_backend API 存入外部记忆库
-- 外部记忆库（Hindsight）支持**会话内实时检索**，写入后立即可查
-- MEMORY.md 作为**兜底备份**，每日凌晨 3 点从外部记忆库同步最新状态
-- 关键信息在同一个会话内通过 context 或临时文件进行传递
-- 会话结束后通过 Cron 任务触发记忆同步
+### 三层记忆架构（v2.0）
+- **热记忆**：`MEMORY.md`（7,000 chars阈值，<30天高频使用，每会话自动注入）
+- **温记忆**：`~/.hermes/memory/warm_summary.md`（30-90天，10KB阈值，按需搜索）
+- **冷记忆**：`~/.hermes/memory/cold_archive/`（90天以上，按月归档，仅显式恢复）
 
-### 三层记忆架构
-- **热记忆**：MEMORY.md（8000 char，<30天高频使用）
-- **温记忆**：`~/.hermes/memory/warm_summary.md`（30-90天摘要）
-- **冷记忆**：`~/.hermes/memory/cold_archive/`（90天以上归档）
-- 当 MEMORY.md 超过 7000 字符时，自动蒸馏脚本将低频内容移至温/冷记忆
+### 触发条件矩阵
+| 条件 | 阈值 | 动作 | 调度 |
+|------|------|------|------|
+| 容量溢出 | MEMORY.md > 7,000 chars | 蒸馏低频条目→温记忆 | 即时 |
+| 条目标龄 | 单项 > 30天 | 移到温记忆 | 每日 3am |
+| 温区溢出 | warm_summary.md > 10KB | 打包→冷归档 | 每周日 3am |
+| 条目恢复 | 手动命令触发 | 温/冷→提升到热 | 按需 |
+
+### 核心脚本
+- **memory_archive_manager.py** — 热→温蒸馏、温→冷打包、状态报告（替代旧 memory_tiering.py）
+  ```bash
+  python3 ~/.hermes/scripts/memory_archive_manager.py --full-maintenance  # 全流程
+  python3 ~/.hermes/scripts/memory_archive_manager.py --status           # 状态报告
+  python3 ~/.hermes/scripts/memory_archive_manager.py --distill          # 仅蒸馏
+  ```
+- **memory_recover.py** — 跨三层搜索、提升、浏览
+  ```bash
+  python3 ~/.hermes/scripts/memory_recover.py --search <keyword>    # 全三层搜索
+  python3 ~/.hermes/scripts/memory_recover.py --promote <keyword>   # 提升到热记忆
+  python3 ~/.hermes/scripts/memory_recover.py --list-cold            # 列举冷归档
+  python3 ~/.hermes/scripts/memory_recover.py --status              # 快速状态
+  ```
+- **memory_maintenance.py** (v2) — 每周维护（调用 archive_manager + 索引校验）
+- **memory_daily_sync.sh** (v2) — 每日同步（Hindsight + 蒸馏）
+- **memory_health.sh** — 每6小时健康检查
+- **memory_full_audit.py** — 月全量审计
+
+### 条目跟踪索引
+各条目的创建时间、访问频率通过 `~/.hermes/memory/.memory_index.json` 独立追踪，不修改 MEMORY.md 原生格式。
+
+### 降级与恢复
+- **降级规则**：30天或低频→温记忆；90天→冷记忆。标记 `@pin` 的条目不降级。
+- **恢复策略**：搜索时优先热→温→冷层层遍历。温/冷命中的关键信息自动提升到热记忆。
+
+### cron 调度
+| 任务 | 时间 | 职责 |
+|------|------|------|
+| 每日记忆蒸馏 | 每日 3am | 全流程蒸馏 + Hindsight 同步 |
+| 每周深度维护 | 周日 3am | 深度索引校验 + 温→冷打包 |
+| 记忆健康检查 | 每6小时 | 监控各层健康 + 异常告警 |
+| 每月全量审计 | 每月1日 4am | 统计报告 + 完整性验证 |
 
 ### 记忆写入纪律
 - 万手哥说"记住"、"记下来"等内容 → 优先保证写入 MEMORY.md + Hindsight 同步
 - 发现记忆不准时 → 告知万手哥触发索引重建
-- 不主动删除记忆，除非万手哥明确要求
+- 系统永不自动删除记忆，只降级不删除，所有内容最终在冷归档中保留
+- 温/冷记忆中的条目可通过 `memory_recover.py --promote` 随时召回
 
 本系统采用三动作带教机制（详细见 knowledge/AI-ML/带教SOP_14bot训练指南.md）：
 1. **纠正错误** — 万手哥直接指出错误，Bot 自动写入 MEMORY.md
@@ -446,3 +481,56 @@ scripts/     references/     templates/     assets/
 3. **I** Isolation — 沙箱试运行
 4. **S** Scope — 确认最小权限
 5. **P** Permission — 请示确认后激活
+
+## 舰队跨 bot 路由规则（硬性 — 2026-06-01 实锤）
+
+> 2026-06-01 测试确认：`delegate_task` 跑在同 profile 下，无法让目标 bot 在群里发消息。
+> 正确路由：kanban + assignee + __origin__ 标记。
+
+**当收到涉及其他 bot 的任务指令时（如"让欣欣/歌手/股神/…做某事"）：**
+
+1. **绝对不要用 delegate_task** — delegate_task 的子Agent 跑在本 profile 下，无法用目标 bot 的身份发消息
+2. 使用 `execute_code`（Python）调用 kanban 模块创建任务：
+   ```python
+   from hermes_cli import kanban_db as kb
+   conn = kb.connect()
+   kb.create_task(conn, title="任务标题", body="具体指令\n__origin__:telegram:-1003979833191:当前话题ID", assignee="目标bot名", priority=10, status="ready")
+   conn.close()
+   ```
+   或者使用 terminal 运行（hermes 命令路径：`~/.local/bin/hermes`）：
+   ```
+   ~/.local/bin/hermes kanban create "任务标题" --body "具体指令\n__origin__:telegram:-1003979833191:话题ID" --assignee 目标bot名 --priority 10
+   ```
+3. 创建后在群里回复：「已创建任务，@目标bot 执行中 ✅」
+4. 目标 bot 的 worker 会通过 `send_message` 把结果发到群
+
+**关键：话题ID 从当前消息上下文中获取** — 收到的 Telegram 话题消息会携带 `message_thread_id`，把这个值填入 __origin__ 中的话题ID位置。
+
+**目标 bot 列表（⚠️ 这是内部 profile 名，不是 Telegram @用户名 — 必须用左边的名作为 assignee）：**
+
+| Telegram @用户名 | 内部 profile 名（assignee=填这个） |
+|---|---|
+| @wanshou_claw_bot | default（万手Claw自己，不跨bot） |
+| @wanshou_code_bot | 码农 |
+| @wanshou_guanjia_bot | 管家 |
+| @wanshou_xiaoshuo_bot | 小说家 |
+| @wanshou_xin_bot | 欣欣 |
+| @wanshou_geshou_bot | 歌手 |
+| @wanshou_gushen_bot | 股神 |
+| @wanshou_caiwu_bot | 财务 |
+| @wanshou_zixun_bot | 资讯 |
+| @wanshou_ruanjian_bot | 软件 |
+| @wanshou_junshi_bot | 军师 |
+| @wanshou_shenji_bot | 审计 |
+| @wanshou_huajia_bot | 画家 |
+| @wanshou_office_bot | Office |
+| @wanshou_prompt_bot | Prompt |
+
+**关键：用户说"让资讯/股神/军师…"时，assignee 填右边那列，不加"万手"前缀。**
+例如用户说"让资讯在群里说…" → assignee="资讯"，不是"万手资讯"。
+
+**示例：**
+- 用户发：「@wanshou_claw_bot 让欣欣在群里说 Hello」
+- 万手Claw 创建：`kanban_create(title="在群里说Hello", body="在群里说'Hello'\n__origin__:telegram:-1003979833191:话题ID", assignee="欣欣")`
+- 用户发：「@wanshou_claw_bot 让股神分析今天行情」
+- 万手Claw 创建：kanban 任务 assignee=股神，body 包含行情分析指令 + __origin__
