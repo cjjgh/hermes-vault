@@ -836,5 +836,43 @@
 
 1. **🔴 P0#5 持续缺失**：已连续跨越 2 个进化周未真实实施。若下周仍不解决，E2 P0 阶段将无法宣告完成，影响 P1/P2 推进节奏。
 2. **🔴 观测器数据不可信**：observer_state.json 已 13 天未更新真实数据。任何依赖 V(t) 或 V̇(t) 的稳定性判断均为猜测。下周必须修复或废弃。
-3. **🟡 USER.md 读取异常**：`hermes doctor` 报错虽看似不影响实际使用，但若 doctor 流程在更多场景（如 cron 健康审计）中出错，可能掩盖其他诊断信号。
+| 🟡 USER.md 读取异常 | `hermes doctor` 报错虽看似不影响实际使用，但若 doctor 流程在更多场景（如 cron 健康审计）中出错，可能掩盖其他诊断信号。 |
+
+## 2026-06-01 — E2 P0#1 MEMORY.md 双上限截断
+
+### 已完成
+- **E2 P0#1: MEMORY.md 双上限截断** — 在 tools/memory_tool.py 的 `_render_block()` 中实现 200 行 / 25KB 双上限截断
+
+### 背景
+- 设计文档（E2 §3 P0#1）指定在 `memory_manager.py` 的 `build_system_prompt()` 中添加截断逻辑
+- 当前架构中，内置 MEMORY.md 内容由 `tools/memory_tool.py` 的 `MemoryStore._render_block()` 组装字符串，`memory_manager.py` 仅处理外部插件 provider
+- 因此实现位置适配为 `MemoryStore._render_block()` — 符合设计意图：「MEMORY.md 注入系统提示前的截断保护」
+
+### 改动
+
+| 文件 | 改动 |
+|------|------|
+| `tools/memory_tool.py` | 新增模块级常量 `MAX_MEMORY_LINES=200`, `MAX_MEMORY_BYTES=25_000`, `_WARNING_TRUNCATED` |
+| `tools/memory_tool.py` | 修改 `_render_block()` — 对 `target="memory"` 先调用 `_truncate_memory_block()` 再计算用量 |
+| `tools/memory_tool.py` | 新增静态方法 `_truncate_memory_block()` — 双上限截断引擎 |
+
+### 设计要点
+- **两步截断**：先按行（`split("\n")[:200]`），再按字节（UTF-8 `encode` → 截断 → 回退至最后完整 newline 边界 → `decode`）
+- **只对 memory 生效**：`target="user"` 不受影响，USER.md 不走此截断
+- **WARNING 追加**：截断后追加 `_WARNING_TRUNCATED` 提示文案，引导用户使用 `memory(action=read)` 查全量或 `memory_archive_manager.py --distill` 压缩
+- **参考实现**：CC `memdir.ts:57-101` — 行数优先、字节上限、WARNING 标志三位一体
+
+### 验证
+- `pytest tests/tools/test_memory_tool.py -x -q` → **68 passed**
+- `pytest tests/tools/test_memory_tool_schema.py tests/tools/test_memory_tool_import_fallback.py -x -q` → **4 passed**
+- `pytest tests/agent/test_memory_provider.py -x -q` → **76 passed**
+- 7 项专用单元验证（正常内容不截断 ✅ / 超行截断 ✅ / 超字节截断 ✅ / 空内容 ✅ / memory 目标生效 ✅ / user 目标不生效 ✅ / 常量正确 ✅）
+- 全流程 MemoryStore 管线测试（250 条 § 分隔条目加载 → 快照生成 → 自动截断至 ≤200 条 → WARNING 正确追加 ✅）
+
+### 备份
+- `tools/memory_tool.py.backup.<timestamp>`（备份文件已保留）
+
+### 关键决策
+- **截断在 `_render_block` 级而非 `build_system_prompt` 级**：当前架构中 `MemoryStore` 是 MEMORY.md 的持有者，截断应该发生在「内容进入系统提示」的最后一关，即渲染层。这与 agent-stability-control 的「功能已存在但找错位置」陷阱（Pitfall #9）一致。
+- **`§` 符号影响行计数**：MEMORY.md 使用 `§` 作为条目分隔符，每条之间通过 `\n§\n` 连接。`split("\n")` 会把 `§` 单独计为一行，因此 250 条实际内容 ≈ 500 行（每对内容+§）。截断至 200 行 ≈ 100 条。这是合理的安全设计——行计数保护优先，字节计数兜底。
 4. **🟢 测试套件依赖 venv**：系统 Python 3.9.6 vs venv Python 3.11.15 的差异需要留意 — 未 source venv 时测试全部无法收集。
