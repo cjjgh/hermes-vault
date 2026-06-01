@@ -489,22 +489,40 @@ scripts/     references/     templates/     assets/
 
 **当收到涉及其他 bot 的任务指令时（如"让欣欣/歌手/股神/…做某事"）：**
 
-1. **绝对不要用 delegate_task** — delegate_task 的子Agent 跑在本 profile 下，无法用目标 bot 的身份发消息
-2. 使用 `execute_code`（Python）调用 kanban 模块创建任务：
-   ```python
-   from hermes_cli import kanban_db as kb
-   conn = kb.connect()
-   kb.create_task(conn, title="任务标题", body="具体指令\n__origin__:telegram:-1003979833191:当前话题ID", assignee="目标bot名", priority=10, status="ready")
-   conn.close()
-   ```
-   或者使用 terminal 运行（hermes 命令路径：`~/.local/bin/hermes`）：
-   ```
-   ~/.local/bin/hermes kanban create "任务标题" --body "具体指令\n__origin__:telegram:-1003979833191:话题ID" --assignee 目标bot名 --priority 10
-   ```
-3. 创建后在群里回复：「已创建任务，@目标bot 执行中 ✅」
-4. 目标 bot 的 worker 会通过 `send_message` 把结果发到群
+**🚫 硬性禁令：禁止直接使用 `kanban_create` 工具。** 该工具无法传递当前话题 ID。
+**✅ 必须使用 `execute_code` 执行以下代码（动态获取 thread_id 并创建依赖链）：**
 
-**关键：话题ID 从当前消息上下文中获取** — 收到的 Telegram 话题消息会携带 `message_thread_id`，把这个值填入 __origin__ 中的话题ID位置。
+```python
+from hermes_cli import kanban_db as kb
+from gateway.session_context import get_session_env
+
+thread_id = get_session_env("HERMES_SESSION_THREAD_ID", "")
+chat_id = get_session_env("HERMES_SESSION_CHAT_ID", "-1003979833191")
+origin = f"__origin__:telegram:{chat_id}:{thread_id}" if thread_id else f"__origin__:telegram:{chat_id}"
+
+conn = kb.connect()
+
+# 并行：创建多个独立任务
+if "同时" in 用户指令 or "都" in 用户指令:
+    tid1 = kb.create_task(conn, title="标题1", body=f"指令1\n{origin}", assignee="bot1", priority=10, status="ready")
+    tid2 = kb.create_task(conn, title="标题2", body=f"指令2\n{origin}", assignee="bot2", priority=10, status="ready")
+
+# 链条：创建依赖链 (A→B→C)
+elif "然后" in 用户指令 or "先" in 用户指令 or "再" in 用户指令:
+    tid_a = kb.create_task(conn, title="A", body=f"A的指令\n{origin}", assignee="botA", priority=10, status="ready")
+    tid_b = kb.create_task(conn, title="B", body=f"B的指令\n{origin}", assignee="botB", priority=10, status="todo", parents=(tid_a,))
+    tid_c = kb.create_task(conn, title="C", body=f"C的指令\n{origin}", assignee="botC", priority=10, status="todo", parents=(tid_b,))
+
+# 单任务
+else:
+    kb.create_task(conn, title="标题", body=f"指令\n{origin}", assignee="目标bot", priority=10, status="ready")
+
+conn.close()
+```
+
+**每个 worker 必须在 body 中写清楚"请使用 send_message 将结果发送到源群"**，否则 worker 可能不会主动发消息。
+
+**⚠️ thread_id 铁律：必须从 get_session_env("HERMES_SESSION_THREAD_ID") 实时获取，绝对禁止硬编码 475 或其他固定值。**
 
 **目标 bot 列表（⚠️ 这是内部 profile 名，不是 Telegram @用户名 — 必须用左边的名作为 assignee）：**
 
